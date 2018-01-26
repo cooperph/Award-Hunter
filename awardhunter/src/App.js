@@ -6,6 +6,7 @@ class App extends Component {
     return (
       <div className="App">
         <p>AwardHunter Welcome Page!</p>
+        <p> changed for pull request</p>
       </div>
     );
   }

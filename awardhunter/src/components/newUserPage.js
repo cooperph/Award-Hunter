@@ -9,33 +9,32 @@ class newUserPage extends React.Component {
 					<span>
 						<button type="button" class="btn">Already have and user name? Sign in here</button>
 					</span>
-					<br>
-					<br>
+
 						<table>
 							<tbody>
 								<tr>
 									<th>User Name: </th>
-										<td><input type="text" name="userName" id="userName" value size="30"></td>
+										<td><input type="text" name="userName" id="userName" value size="30" /></td>
 								</tr>
 								<tr>
 									<th>Password: </th>
-										<td><input type="text" name="password" id="password" value size="30"></td>
+										<td><input type="text" name="password" id="password" value size="30" /></td>
 								</tr>
 								<tr>
 									<th>Retype Password: </th>
-									<td><input type="text" name="retypePassword" id="retypePassword" value size="30"></td>
+									<td><input type="text" name="retypePassword" id="retypePassword" value size="30" /></td>
 								</tr>
 								<tr>
 									<th>Email Address: </th>
-									<td><input type="text" name="email" id="email" value size="30"></td>
+									<td><input type="text" name="email" id="email" value size="30" /></td>
 								</tr>
 								<tr>
 									<th>First Name: </th>
-									<td><input type="text" name="firstName" id="firstName" value size="30"></td>
+									<td><input type="text" name="firstName" id="firstName" value size="30" /></td>
 								</tr>
 								<tr>
 									<th>Last Name: </th>
-									<td><input type="text" name="lastName" id="lastName" value size="30"></td>
+									<td><input type="text" name="lastName" id="lastName" value size="30" /></td>
 								</tr>	
 								<tr>
 									<th>Profile Picture</th>

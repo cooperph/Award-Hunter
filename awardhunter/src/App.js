@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserPage from './components/UserPage/UserPage';
 import LoginPage from './components/LoginPage';
+// import newUserPage from './components/newUserPage';
 import './App.css';
 
 class App extends Component {

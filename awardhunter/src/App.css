@@ -22,6 +22,47 @@
   font-size: large;
 }
 
+#circle {
+  width: 100px;
+  height: 100px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 80px;
+  background: blue;
+  color: white;
+}
+#profile {
+
+}
+#name {
+  font-size: 35px;
+}
+#email {
+
+}
+#awards {
+
+}
+#shapes {
+  font-size: 90px;
+}
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 14px;
+  text-align: center;
+}
+.box {
+  margin: auto;
+  width: 60%;
+  padding: 14px;
+  text-align: center;
+  width: 120px;
+  padding: 10px;
+  background-color: lightgreen;
+  border: 2px solid green;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

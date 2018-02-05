@@ -29,10 +29,10 @@ class LoginPage extends React.Component {
 								<th></th>
 									<td>
 										<span>
-											<button type="button" class="btn btn-primary">Sign In</button>
+											<button type="button" className="btn btn-primary">Sign In</button>
 										</span>
 										<span>
-											<button type="button" class="btn">Forget your password?</button>
+											<button type="button" className="btn">Forget your password?</button>
 										</span>
 									</td>
 							</tr>

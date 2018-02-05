@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import UserPage from './components/UserPage/UserPage';
+//import UserPage from './components/UserPage/UserPage';
 import LoginPage from './components/LoginPage';
+import AdminPage from './components/AdminPage/AdminPage';
 // import newUserPage from './components/newUserPage';
 import './App.css';
 
@@ -24,10 +25,10 @@ class App extends Component {
 
   render() {
     let content = null;
-    if(this.state.loggedIn) {
-      content = <UserPage />
+    if(this.state.loggedIn){
+      content = <AdminPage />
     }
-    else {
+    else{
       content = <LoginPage onClick={this.handleLogIn}/>
     }
 

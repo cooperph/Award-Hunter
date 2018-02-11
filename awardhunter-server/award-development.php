@@ -86,6 +86,8 @@ file_put_contents($file, $str);
 
 // exec shell command
 $output_filename = uniqid();
+echo "<a href=\"pdf/{$output_filename}.pdf\">Certificate</a>";
+
 if ($environment == 'development') {
     shell_exec("/Library/TeX/texbin/pdflatex -output-directory=pdf -jobname={$output_filename} award.tex");
 } else {

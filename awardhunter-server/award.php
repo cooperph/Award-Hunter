@@ -1,6 +1,5 @@
 <?php
-$environment = 'development';
-// $environment = 'production';
+require_once("environment.php");
 
 // TODO: get the award_type, got_award, gave_award value from $_POST
 // $_POST['award_type']
@@ -11,7 +10,7 @@ $got_award = 6;
 $gave_award = 2;
 
 if ($environment == 'development') {
-    require_once("db-development.php");    
+    require_once("db-development.php");
 } else {
    require_once("db-production.php"); 
 }
@@ -42,7 +41,8 @@ $conn->close();
 $image = "apple";
 
 // generate latex file
-$file = 'award.tex';
+$output_filename = uniqid();
+$file = "pdf/{$output_filename}.tex";
 
 $str = "\documentclass{slides}\n";
 $str .= "\\nofiles\n";
@@ -85,13 +85,12 @@ $str .= "\\end{document}\n";
 file_put_contents($file, $str);
 
 // exec shell command
-$output_filename = uniqid();
 echo "<a href=\"pdf/{$output_filename}.pdf\">Certificate</a>";
 
 if ($environment == 'development') {
-    shell_exec("/Library/TeX/texbin/pdflatex -output-directory=pdf -jobname={$output_filename} award.tex");
+    shell_exec("/Library/TeX/texbin/pdflatex -output-directory=pdf -jobname={$output_filename} {$file}");
 } else {
-    shell_exec("/usr/bin/pdflatex -output-directory=pdf -jobname={$output_filename} award.tex");
+    shell_exec("/usr/bin/pdflatex -output-directory=pdf -jobname={$output_filename} {$file}");
 }
 
 ?>

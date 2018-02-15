@@ -1,14 +1,18 @@
-.flex-container {
+.admin-container {
     display: flex;
     flex-direction: row;
+    background-color: palegreen;
     height: 100%;
 }
-
-.flex-container > .sidebar {
-    width: 30%;
+ 
+.sidebar {
     flex: 1;
+    flex-grow: 1;
+    background-color: white;
 }
 
-.flex-container > .main {
+.main-admin {
     flex: 1;
+    flex-grow: 5;
+    background-color: #e1e1e1;
 }

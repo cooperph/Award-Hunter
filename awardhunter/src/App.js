@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userType: '',
+      userType: 'admin',
     };
 
     this.handleLogIn = this.handleLogIn.bind(this);
@@ -35,11 +35,14 @@ class App extends Component {
     }
     
     return (
-      <div className="w3-container app" >
-        <div className="blackbar flex-child" />
-        <div className="flex-item w3-container w3-grey content flex-child">
+      <div className="container" >
+        <div className="inner w3-bar w3-black">
+            <p className='inner w3-right w3-bar-item'>Award Hunter</p>
+        </div>
+        <div className="inner content">
           {content}
         </div>
+        <div className="inner blackbar" />
       </div>
     );
   }

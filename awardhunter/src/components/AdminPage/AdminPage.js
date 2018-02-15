@@ -7,11 +7,11 @@ require('./AdminPage.css')
 class AdminPage extends React.Component {
     render() {
         return(
-            <div className='w3-content flex-container'>
-                <div className='sideBar w3-red'>
+            <div className='admin-container'>
+                <div className='sidebar'>
                     <SideBar />
                 </div>
-                <div className='main w3-blue'>
+                <div className='main-admin'>
                     <MainPage />
                 </div>
             </div>

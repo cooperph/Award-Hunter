@@ -1,0 +1,36 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    background-color: lightskyblue;
+    height: 100%;
+}
+
+.main-sub-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.main-inner {
+    flex: 1;
+    border: 1px solid white;
+}
+
+.tabbar {
+    flex-grow: 1;
+    border: 1px solid red;
+}
+
+.tab-item {
+    flex-grow: 1;
+    border: 1px solid black;
+}
+
+.tab-item:hover {
+    background-color: yellow;
+}
+
+.main-content {
+    flex-grow: 8;
+}
+

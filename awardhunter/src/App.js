@@ -9,15 +9,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userType: 'admin',
+      userType: '',
+      userName: ''
     };
 
     this.handleLogIn = this.handleLogIn.bind(this);
   }
 
-  handleLogIn(userValue){
+  handleLogIn(array){
     this.setState({
-      userType: userValue
+      userType: array[0],
+      userName: array[1],
     })
   }
 
@@ -28,7 +30,7 @@ class App extends Component {
         content = <UserPage />
         break;
       case 'admin':
-        content = <AdminPage />
+        content = <AdminPage user={this.state.userName}/>
         break;
       default:
         content = <LoginPage onClick={this.handleLogIn} />

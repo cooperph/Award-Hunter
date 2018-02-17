@@ -29,7 +29,8 @@ class LoginPage extends React.Component {
 		for(var i = 0; i < data.users.length; i++) {
 			if(data.users[i].name === name) {
 				if(data.users[i].password === pass) {
-					return data.users[i].accountType;
+					let values = [data.users[i].accountType, data.users[i].name];
+					return values;
 				}
 				else {
 					alert('Invalid Password, please try again');
@@ -42,7 +43,7 @@ class LoginPage extends React.Component {
 	}
     render() {
         return(
-            <div className='w3-content '>
+            <div className='w3-content w3-padding-32'>
                 <header className='w3-container w3-center'>
                     <h1>Welcome to AwardHunter</h1>
                     <p>Please login to get started!</p>
@@ -58,6 +59,8 @@ class LoginPage extends React.Component {
 						<input type='submit' value='Log In' />
 					</form>
 				</div>
+				<p>user:user123</p>
+				<p>admin:admin123</p>
             </div>
         )
     }

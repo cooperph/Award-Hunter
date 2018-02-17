@@ -1,18 +1,45 @@
 import React from 'react';
 import SideBar from './SideBar/SideBar'
-import MainPage from './MainPage/MainPage'
+import StatsPage from './StatsPage/StatsPage'
 
 require('./AdminPage.css')
 
 class AdminPage extends React.Component {
+    constructor(props) {
+		super(props);
+		this.state = {
+            activePage: '',
+		};
+        
+        this.changeActivePage = this.changeActivePage.bind(this);
+    }
+    
+    changeActivePage(name) {
+        this.setState({
+            activePage: name,
+        })
+    }
+
     render() {
+        console.log(this.props.user)
+        let content = null;
+        switch(this.state.activePage) {
+            case 'stats':
+                content = <StatsPage />;
+                break;
+            case 'admin':
+                content = <p>Update Admin Page</p>
+                break;
+            default:
+                content = <p>Update User Settings</p>
+        }
         return(
             <div className='admin-container'>
                 <div className='sidebar'>
-                    <SideBar />
+                    <SideBar user={this.props.user} onClick={this.changeActivePage}/>
                 </div>
                 <div className='main-admin'>
-                    <MainPage />
+                    {content}
                 </div>
             </div>
         )

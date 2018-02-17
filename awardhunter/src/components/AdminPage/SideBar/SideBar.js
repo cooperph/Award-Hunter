@@ -3,15 +3,39 @@ import React from 'react'
 require('./SideBar.css')
 
 class SideBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activePage: 'tab1',
+        };
+
+    this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(e) {
+        e.preventDefault();
+		let temp = e.target.id;
+		this.props.onClick(temp)
+    }
+
     render() {
         return(
-            <div>
-                <div>
-                    <p>picture and welcome part</p>
+            <div className='side-content header'>
+                <br />
+                <div className='side-inner w3-center'>
+                    <div className="w3-col s4">
+                        <i className="fas fa-user fa-3x"></i>
+                    </div>
+                    <div className="w3-col s8 w3-bar">
+                        <span>Welcome, <strong>{this.props.user ? this.props.user : 'USER NAME'}</strong></span><br/>
+                        <button>Logout</button>
+                    </div>
                 </div>
                 <hr />
-                <div>
-                    <p>Links to different parts of the admin page</p>
+                <div className='side-inner links w3-bar-block'>
+                    <div className='w3-bar-item w3-button' id='users' onClick={this.handleClick}><i className="fas fa-users"></i> Manage Users</div>
+                    <div className='w3-bar-item w3-button' id='admin' onClick={this.handleClick}><i className="fas fa-user-secret"></i> Manage Admin</div>
+                    <div className='w3-bar-item w3-button' id='stats' onClick={this.handleClick}><i className="fas fa-table"></i> Statistics</div>
                 </div>
             </div>
         )

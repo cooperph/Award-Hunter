@@ -1,8 +1,8 @@
 import React from 'react'
 
-require('./MainPage.css')
+require('./StatsPage.css')
 
-class MainPage extends React.Component {
+class StatsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,8 +14,6 @@ class MainPage extends React.Component {
 
     changeTab(e) {
         if(this.nextState !== this.state){
-            //console.log(document.getElementById())
-            console.log(e.target.id);
             this.setState({
                 activePage: e.target.id
             })
@@ -51,4 +49,4 @@ class MainPage extends React.Component {
     }
 }
 
-export default MainPage;
+export default StatsPage;

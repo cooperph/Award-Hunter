@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Award Form</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+	<h1>Award Form</h1>
+
+
+	<!--
+	Local
+	Client: http://localhost:3000/award_form.html
+	Server: http://localhost/award.php
+	EC2 Server
+	Client: http://13.58.88.116:80/award_form.html
+	Server: http://13.58.88.116:3000/award.php
+
+
+	Local
+	http://localhost/award_form.html POST to http://localhost/award.php
+	http://13.58.88.116:3000/award_form.html POST to http://13.58.88.116:3000/award.php
+	-->
+	<form action="award.php" method="POST">
+
+		<div class="form-group row">
+			<span class="col-sm-1">Name:</span>
+			<span class="col-sm-2">Kelly Kapoor</span>
+			<input type="hidden" name="gave_award" value="5">
+		</div>
+
+		<div class="form-group row">
+			<label for="got_award" class="col-sm-1">Employee:</label>
+			<select id="got_award" name="got_award" required="" class="col-sm-2 custom-select mr-sm-2">
+				<option value="">select employee</option>
+				<option value="1">Michael Scott</option>
+				<option value="2">Jim Halpert</option>
+				<option value="3">Dwight Schrute</option>
+			</select>
+		</div>
+
+		<div class="form-group row">
+			<label for="award_type" class="col-sm-1">Award:</label>
+			<select id="award_type" name="award_type" required="" class="col-sm-2 custom-select mr-sm-2">
+				<option value="">select award type</option>
+				<option value="1">Dundee Award</option>
+				<option value="2">Employee of the Week</option>
+				<option value="3">Employee of the Month</option>
+				<option value="4">Employee of the Year</option>
+				<option value="5">Happy Birthday</option>
+				<option value="6">Outstanding Achievement</option>
+			</select>
+		</div>
+
+
+		<input type="submit" class="btn btn-primary">
+	</form>
+</div>
+</body>
+</html>

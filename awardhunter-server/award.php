@@ -2,12 +2,14 @@
 require_once("environment.php");
 
 // TODO: get the award_type, got_award, gave_award value from $_POST
-// $_POST['award_type']
-// $_POST['got_award']
-// $_POST['gave_award']
-$award_type = 2;
-$got_award = 6;
-$gave_award = 2;
+
+// $award_type = 2;
+// $got_award = 6;
+// $gave_award = 2;
+
+$award_type = $_POST['award_type'];
+$got_award = $_POST['got_award'];
+$gave_award = $_POST['gave_award'];
 
 if ($environment == 'development') {
     require_once("db-development.php");
@@ -21,7 +23,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT first_name AS got_award_first, last_name AS got_award_last, (SELECT first_name FROM Employee WHERE Employee.id = {$got_award})AS gave_award_first, (SELECT last_name FROM Employee WHERE Employee.id = {$gave_award})AS gave_award_last, (SELECT award_name FROM Award_Types WHERE Award_Types.id = {$award_type})AS award_name FROM Employee WHERE Employee.id = 6";
+$sql = "SELECT first_name AS got_award_first, last_name AS got_award_last, (SELECT first_name FROM Employee WHERE Employee.id = {$gave_award})AS gave_award_first, (SELECT last_name FROM Employee WHERE Employee.id = {$gave_award})AS gave_award_last, (SELECT award_name FROM Award_Types WHERE Award_Types.id = {$award_type})AS award_name FROM Employee WHERE Employee.id = {$got_award}";
+
 
 $result = $conn->query($sql);
 
@@ -38,6 +41,7 @@ if ($result->num_rows > 0) {
 $conn->close();
 
 // TODO: change the image path
+// $image = $row["image"]
 $image = "apple";
 
 // generate latex file

@@ -1,6 +1,6 @@
 import React from 'react';
 import SideBar from './SideBar/SideBar'
-
+import GiveAward from './GiveAward/GiveAward'
 
 require('./UserPage.css')
 
@@ -23,14 +23,11 @@ class UserPage extends React.Component {
     render() {
         let content = null;
         switch(this.state.activePage) {
-            case 'stats':
+            case 'manage':
                 content = <p>Third Page</p>;
                 break;
-            case 'admin':
-                content = <p>Second Page</p>
-                break;
             default:
-                content = <p>First Page</p>
+                content = <GiveAward />
         }
         return(
             <div className='admin-container'>

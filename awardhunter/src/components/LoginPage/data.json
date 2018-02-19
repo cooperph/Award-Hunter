@@ -9,6 +9,11 @@
             "name": "admin",
             "password": "admin123",
             "accountType": "admin"
+        },
+        {
+            "name": "scott ",
+            "password": "scott123",
+            "accountType": "admin"
         }
     ]
 }

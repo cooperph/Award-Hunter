@@ -21,7 +21,6 @@ class AdminPage extends React.Component {
     }
 
     render() {
-        console.log(this.props.user)
         let content = null;
         switch(this.state.activePage) {
             case 'stats':

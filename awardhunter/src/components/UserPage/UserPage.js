@@ -1,16 +1,45 @@
 import React from 'react';
+import SideBar from './SideBar/SideBar'
+
+
+require('./UserPage.css')
 
 class UserPage extends React.Component {
+    constructor(props) {
+		super(props);
+		this.state = {
+            activePage: '',
+		};
+        
+        this.changeActivePage = this.changeActivePage.bind(this);
+    }
+    
+    changeActivePage(name) {
+        this.setState({
+            activePage: name,
+        })
+    }
+
     render() {
+        let content = null;
+        switch(this.state.activePage) {
+            case 'stats':
+                content = <p>Third Page</p>;
+                break;
+            case 'admin':
+                content = <p>Second Page</p>
+                break;
+            default:
+                content = <p>First Page</p>
+        }
         return(
-            <div>
-                
-                <div id="circle" className="center">Profile picture here</div>
-                <div id="name" className="center"><b>FirstName LastName</b></div>
-                <div id="email" className="center"><em>Email address</em></div>
-                <div className="center"><b>Let me know what else we want on the user page!</b></div>
-                <div id="awards" className="box">Awards</div>
-                <p id="shapes" className="center">&#9681; &#9673; &#9678; &#9680; </p>
+            <div className='admin-container'>
+                <div className='sidebar'>
+                    <SideBar user={this.props.user} onClick={this.changeActivePage}/>
+                </div>
+                <div className='main-admin'>
+                    {content}
+                </div>
             </div>
         )
     }

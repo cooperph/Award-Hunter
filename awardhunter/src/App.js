@@ -9,8 +9,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userType: 'user',
-      userName: 'Sponge Bob'
+      userType: '',
+      userName: ''
     };
 
     this.handleLogIn = this.handleLogIn.bind(this);

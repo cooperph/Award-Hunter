@@ -33,9 +33,9 @@ class SideBar extends React.Component {
                 </div>
                 <hr />
                 <div className='side-inner links w3-bar-block'>
-                    <div className='w3-bar-item w3-button' id='users' onClick={this.handleClick}><i className="fas fa-users"></i> Manage Users</div>
-                    <div className='w3-bar-item w3-button' id='admin' onClick={this.handleClick}><i className="fas fa-user-secret"></i> Manage Admin</div>
-                    <div className='w3-bar-item w3-button' id='stats' onClick={this.handleClick}><i className="fas fa-table"></i> Statistics</div>
+                    <div className='w3-bar-item w3-button' id='give' onClick={this.handleClick}><i className="fas fa-users"></i> Give Award</div>
+                    <div className='w3-bar-item w3-button' id='manage' onClick={this.handleClick}><i className="fas fa-user-secret"></i> Manage Account</div>
+                    {/*<div className='w3-bar-item w3-button' id='stats' onClick={this.handleClick}><i className="fas fa-table"></i> Statistics</div>*/}
                 </div>
             </div>
         )

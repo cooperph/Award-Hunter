@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       userType: 'user',
-      userName: 'Testing!'
+      userName: 'Sponge Bob'
     };
 
     this.handleLogIn = this.handleLogIn.bind(this);

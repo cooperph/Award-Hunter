@@ -1,5 +1,4 @@
 <?php
-
 // Replace path_to_sdk_inclusion with the path to the SDK as described in 
 // http://docs.aws.amazon.com/aws-sdk-php/v3/guide/getting-started/basic-usage.html
 // require 'aws/aws-autoloader.php';
@@ -12,7 +11,7 @@ define('SENDER', 'chanlok@oregonstate.edu');
 // Replace recipient@example.com with a "To" address. If your account 
 // is still in the sandbox, this address must be verified.
 // define('RECIPIENT', 'chanlok@oregonstate.edu');    
-define('RECIPIENT', 'chanloki720@gmail.com');    
+define('RECIPIENT', $got_award_email);    
 
 // Specify a configuration set. If you do not want to use a configuration
 // set, comment the following variable, and the 
@@ -22,12 +21,10 @@ define('RECIPIENT', 'chanloki720@gmail.com');
 // Replace us-west-2 with the AWS Region you're using for Amazon SES.
 define('REGION','us-west-2'); 
 
-define('SUBJECT','Test');
+define('SUBJECT','Test 2');
 
-define('HTMLBODY','<h1>Testing</h1>'.
-                  '<p>This email was sent with <a href="https://aws.amazon.com/ses/">'.
-                  'Amazon SES</a> using the <a href="https://aws.amazon.com/sdk-for-php/">'.
-                  'AWS SDK for PHP</a>.</p>');
+define('HTMLBODY','<h1>Certificate</h1>'.
+                  "<p>$cert_link</p>");
 define('TEXTBODY','This email was send with Amazon SES using the AWS SDK for PHP.');
 
 define('CHARSET','UTF-8');

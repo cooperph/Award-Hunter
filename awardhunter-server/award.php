@@ -11,6 +11,7 @@ $award_type = $_POST['award_type'];
 $got_award = $_POST['got_award'];
 $gave_award = $_POST['gave_award'];
 
+
 if ($environment == 'development') {
     require_once("db-development.php");
 } else {
@@ -23,8 +24,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT first_name AS got_award_first, last_name AS got_award_last, (SELECT first_name FROM Employee WHERE Employee.id = {$gave_award})AS gave_award_first, (SELECT last_name FROM Employee WHERE Employee.id = {$gave_award})AS gave_award_last, (SELECT award_name FROM Award_Types WHERE Award_Types.id = {$award_type})AS award_name FROM Employee WHERE Employee.id = {$got_award}";
-
+$sql = "SELECT first_name AS got_award_first, last_name AS got_award_last, email AS got_award_email, (SELECT first_name FROM Employee WHERE Employee.id = {$gave_award})AS gave_award_first, (SELECT last_name FROM Employee WHERE Employee.id = {$gave_award})AS gave_award_last, (SELECT image FROM Employee WHERE Employee.id = {$gave_award}) AS image, (SELECT award_name FROM Award_Types WHERE Award_Types.id = {$award_type})AS award_name FROM Employee WHERE Employee.id = {$got_award}";
 
 $result = $conn->query($sql);
 
@@ -33,16 +33,16 @@ if ($result->num_rows > 0) {
         $name = $row["got_award_first"] . " " . $row["got_award_last"];
         $award = $row["award_name"];
         $officer = $row["gave_award_first"] . " " . $row["gave_award_last"];
+        $got_award_email = $row["got_award_email"];
+        $image = $row["image"];
     }
 } else {
     echo "no results";
 }
 
+
 $conn->close();
 
-// TODO: change the image path
-// $image = $row["image"]
-$image = "apple";
 
 // generate latex file
 $output_filename = uniqid();
@@ -53,7 +53,7 @@ $str .= "\\nofiles\n";
 $str .= "\usepackage{lscape}\n";
 $str .= "\usepackage{graphicx}\n";
 $str .= "\pagenumbering{gobble}\n";
-$str .= "\graphicspath{ {images/} }\n";
+$str .= "\graphicspath{ {} }\n";
 $str .= "\usepackage[export]{adjustbox}\n\n";
 
 $str .= "\begin{document}\n";
@@ -89,12 +89,16 @@ $str .= "\\end{document}\n";
 file_put_contents($file, $str);
 
 // exec shell command
-echo "<a href=\"pdf/{$output_filename}.pdf\">Certificate</a>";
+$cert_link = "<a href=\"http://{$_SERVER['HTTP_HOST']}/pdf/{$output_filename}.pdf\">Certificate</a>";
+echo $cert_link;
 
 if ($environment == 'development') {
     shell_exec("/Library/TeX/texbin/pdflatex -output-directory=pdf -jobname={$output_filename} {$file}");
 } else {
     shell_exec("/usr/bin/pdflatex -output-directory=pdf -jobname={$output_filename} {$file}");
 }
+
+// send email
+include 'email/mail.php'
 
 ?>

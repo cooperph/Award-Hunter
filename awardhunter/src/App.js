@@ -4,6 +4,8 @@ import LoginPage from './components/LoginPage/LoginPage';
 import AdminPage from './components/AdminPage/AdminPage';
 // import newUserPage from './components/newUserPage';
 import './App.css';
+import RecoveryPage from './components/RecoveryPage/RecoveryPage';
+import NewUserPage from './components/NewUserPage/NewUserPage';
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +30,9 @@ class App extends Component {
     switch(this.state.userType){
       case 'user':
         content = <UserPage />
+        //content = <RecoveryPage />
+        //content = <NewUserPage />
+
         break;
       case 'admin':
         content = <AdminPage user={this.state.userName}/>

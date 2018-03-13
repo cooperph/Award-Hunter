@@ -6,9 +6,21 @@ use Slim\Http\Response;
 // Reference
 // https://arjunphp.com/creating-restful-api-slim-framework/
 
-// API List
-// http://13.58.88.116:3000/users
-// http://13.58.88.116:3000/admins
+// get award type
+$app->get('/award_types', function ($request, $response, $args) {
+  $sth = $this->db->prepare("SELECT * FROM Award_Types");
+  $sth->execute();
+  $award_types = $sth->fetchAll();
+  return $this->response->withJson($award_types);
+});
+
+// get all departments
+$app->get('/departments', function ($request, $response, $args) {
+  $sth = $this->db->prepare("SELECT * FROM Departments");
+  $sth->execute();
+  $departments = $sth->fetchAll();
+  return $this->response->withJson($departments);
+});
 
 // get all users
 $app->get('/users', function ($request, $response, $args) {
@@ -65,7 +77,33 @@ $app->delete('/users/[{id}]', function ($request, $response, $args) {
   // return $this->response->withStatus(200);
 });
 
-// send email
+// Update a user with given id
+$app->put('/users/[{id}]', function ($request, $response, $args) {
+  $input = $request->getParsedBody();
+  $sql = "UPDATE Employee SET first_name=:first_name, last_name=:last_name, email=:email, password=:password, department=:department, image=:image WHERE id=:id";
+  $sth = $this->db->prepare($sql);
+  $sth->bindParam("id", $args['id']);
+  $sth->bindParam("first_name", $input['first_name']);
+  $sth->bindParam("last_name", $input['last_name']);
+  $sth->bindParam("email", $input['email']);
+  $sth->bindParam("password", $input['password']);
+  $sth->bindParam("department", $input['department']);
+  $sth->bindParam("image", $input['image']);
+  $sth->execute();
+  $input['id'] = $args['id'];
+  return $this->response->withJson($input);
+});
+
+// get awards
+$app->get('/awards', function ($request, $response) {
+  $sql = "SELECT award_name, A.first_name AS got_award_first_name, A.last_name AS got_award_last_name, depo_name AS got_award_department, B.first_name AS gave_award_first_name, B.last_name AS gave_award_last_name FROM Awards INNER JOIN Award_Types ON Award_Types.id = Awards.award_type INNER JOIN Employee A ON Awards.got_award = A.id INNER JOIN Employee B ON Awards.gave_award = B.id INNER JOIN Departments ON Departments.id = A.department";
+  $sth = $this->db->prepare($sql);
+  $sth->execute();
+  $results = $sth->fetchAll();
+  return $this->response->withJson($results);
+});
+
+// create a new award and send email
 $app->post('/awards', function ($request, $response) {
   // TODO: change it back to production
   $environment = 'development';
@@ -157,27 +195,3 @@ $app->post('/awards', function ($request, $response) {
   // return $this->response->withJson($input);
   return $this->response->withJson($result);
 });
-
-/*
-// Search for todo with given search teram in their name
-$app->get('/todos/search/[{query}]', function ($request, $response, $args) {
-$sth = $this->db->prepare("SELECT * FROM tasks WHERE UPPER(task) LIKE :query ORDER BY task");
-       $query = "%".$args['query']."%";
-       $sth->bindParam("query", $query);
-$sth->execute();
-$todos = $sth->fetchAll();
-    return $this->response->withJson($todos);
-});
-
-// Update todo with given id
-$app->put('/todos/[{id}]', function ($request, $response, $args) {
-       $input = $request->getParsedBody();
-       $sql = "UPDATE tasks SET task=:task WHERE id=:id";
-$sth = $this->db->prepare($sql);
-       $sth->bindParam("id", $args['id']);
-       $sth->bindParam("task", $input['task']);
-$sth->execute();
-       $input['id'] = $args['id'];
-    return $this->response->withJson($input);
-});
-*/

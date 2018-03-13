@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import UserPage from './components/UserPage/UserPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import AdminPage from './components/AdminPage/AdminPage';
-// import newUserPage from './components/newUserPage';
+import NewUserPage from './components/NewUserPage/NewUserPage';
+import RecoveryPage from './components/RecoveryPage/RecoveryPage';
 import './App.css';
 
 class App extends Component {
@@ -28,6 +29,8 @@ class App extends Component {
     switch(this.state.userType){
       case 'user':
         content = <UserPage />
+        //content = <RecoveryPage />
+        //content = <NewUserPage />
         break;
       case 'admin':
         content = <AdminPage user={this.state.userName}/>

@@ -1,9 +1,7 @@
 import React from 'react';
-import Table from '../../Table/Table';
+import Table from '../../Table/Table'
 
-require('./UpdateUserInfo.css');
-
-class UpdateUserInfo extends React.Component {
+class UpdateAdminInfo extends React.Component {
     constructor(props) {
 		super(props);
 		this.state = {
@@ -25,7 +23,6 @@ class UpdateUserInfo extends React.Component {
             this.buildSchema(nextProps);
             this.buildData(nextProps);
         }
-
     }
     
     buildSchema(data) {
@@ -34,7 +31,7 @@ class UpdateUserInfo extends React.Component {
             let newSchema = Object.keys(temp);
             newSchema.push('Edit');
             newSchema.push('Delete');
-            if(this.refs.userRef){
+            if(this.refs.adminRef){
                 this.setState({
                     schema: newSchema,
                 });
@@ -50,7 +47,7 @@ class UpdateUserInfo extends React.Component {
                 innerData = Object.values(data.rawData[i])
                 newData.push(innerData)
             }
-            if(this.refs.userRef){
+            if(this.refs.adminRef){
                 this.setState({
                     data: newData,
                 })
@@ -60,9 +57,9 @@ class UpdateUserInfo extends React.Component {
 
     render() {
         return(
-            <div ref='userRef'>
+            <div ref='adminRef'>
                 <br/>
-                <h1>Update User Data</h1>
+                <h1>Update Admin Data</h1>
                 <hr />
                 <Table schema={this.state.schema} data={this.state.data} 
                         type={this.props.type}/>
@@ -71,4 +68,4 @@ class UpdateUserInfo extends React.Component {
     }
 }
 
-export default UpdateUserInfo;
+export default UpdateAdminInfo;

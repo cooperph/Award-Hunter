@@ -32,9 +32,11 @@ class Table extends React.Component {
                     return <th key={s1}>{s1}</th>
                 })}
             </tr>
-            this.setState({
-                schema: tableSchema,
-            })   
+            if(this.refs.tableRef){
+                this.setState({
+                    schema: tableSchema,
+                })
+            }
         } 
     }
 
@@ -95,7 +97,7 @@ class Table extends React.Component {
         })
 
         return (
-            <div>
+            <div ref='tableRef'>
                 <table className="table table-striped table-bordered table-hover">
                     <thead>
                         {/* {this.makeTableSchema()} */}
@@ -109,13 +111,13 @@ class Table extends React.Component {
                 <hr/>
                 <div>
                     <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                        Create New User
+                        Create New {this.props.type}
                     </button>
                     <div className="modal fade" id="myModal" tabIndex="-1">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add New User</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Add New {this.props.type}</h5>
                             <button type="button" className="close" data-dismiss="modal">
                             <span aria-hidden="true">&times;</span>
                             </button>

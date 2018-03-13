@@ -5,50 +5,54 @@ class Table extends React.Component {
     constructor(props) {
 		super(props);
 		this.state = {
-            schema: this.adjustSchema(this.props.schema),
-            data: this.adjustData(this.props.data)
+
         };
 
-        this.adjustSchema = this.adjustSchema.bind(this);
-        this.adjustData = this.adjustData.bind(this);
         this.makeTableSchema = this.makeTableSchema.bind(this);
         this.makeButton = this.makeButton.bind(this);
         this.buttonClick = this.buttonClick.bind(this);
     }
 
-    adjustSchema(schema) {
-        let newSchema = schema;
-        newSchema.push('Edit');
-        newSchema.push('Delete');
-        return newSchema;
+    componentDidMount() {
+        this.makeTableSchema(this.props);
+        this.makeTableBody(this.props);
     }
 
-    adjustData(data) {
-        return data;
+    componentWillReceiveProps(nextProps) {
+        if( nextProps !== this.props ) {
+            this.makeTableSchema(nextProps);
+            this.makeTableBody(nextProps);
+        }
     }
 
-    makeTableSchema() {
-        let schema = <tr>
-            {this.state.schema.map((s1) => {
-                return <th key={s1}>{s1}</th>
-            })}
-        </tr>
-
-        return schema;
+    makeTableSchema(data) {
+        if(data.schema) {
+            let tableSchema = <tr>
+                {data.schema.map((s1) => {
+                    return <th key={s1}>{s1}</th>
+                })}
+            </tr>
+            this.setState({
+                schema: tableSchema,
+            })   
+        } 
     }
 
-    makeTableBody() {
-        let data = this.state.data.map((m1, idx) => {
-            return <tr key={'row-'+idx}>
-                    {m1.map((m2)=> {
-                        return <td key={m2}>{m2}</td>
-                    })}
-                    <td>{this.makeButton('edit')}</td>
-                    <td>{this.makeButton('window-close')}</td>
-                </tr>
-        })
-
-        return data;
+    makeTableBody(data) {
+        if(data.data){
+            let tableData = data.data.map((m1, idx) => {
+                return <tr key={'row-'+idx}>
+                        {m1.map((m2) => {
+                            return <td key={m2}>{m2}</td>
+                        })}
+                        <td key={idx + '_edit'}>{this.makeButton('edit')}</td>
+                        <td key={idx + '_delete'}>{this.makeButton('window-close')}</td>
+                    </tr>
+            })
+            this.setState({
+                data: tableData,
+            })
+        }
     }
     makeButton(type) {
         let button = (<button className="button" id={type} onClick={this.buttonClick.bind(this, {type})}>
@@ -92,12 +96,14 @@ class Table extends React.Component {
 
         return (
             <div>
-                <table className="table table-striped">
+                <table className="table table-striped table-bordered table-hover">
                     <thead>
-                        {this.makeTableSchema()}
+                        {/* {this.makeTableSchema()} */}
+                        {this.state.schema}
                     </thead>
                     <tbody>
-                        {this.makeTableBody()}
+                        {/* {this.makeTableBody()} */}
+                        {this.state.data}
                     </tbody>
                 </table>
                 <hr/>

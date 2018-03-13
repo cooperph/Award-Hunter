@@ -2,9 +2,6 @@ import React from 'react';
 import SideBar from './SideBar/SideBar'
 import StatsPage from './StatsPage/StatsPage'
 import UpdateUserInfo from './UpdateUserInfo/UpdateUserInfo'
-//import mysql from 'mysql';
-
-var mysql = require('mysql')
 
 require('./AdminPage.css')
 
@@ -13,34 +10,37 @@ class AdminPage extends React.Component {
 		super(props);
 		this.state = {
             activePage: '',
-            schema: [ 'First Name', 'Last Name', 'Department', 'Email Address' ],
-            data: [ ['George', 'Michael', 'Accounting', 'blachblah@glah.org'], ['Michael', 'Bluth', 'Manager', 'MBluth@bananastand.com']]
+            serverData: []
 		};
         
+        this.fetchUsers = this.fetchUsers.bind(this);
         this.changeActivePage = this.changeActivePage.bind(this);
     }
     
     componentDidMount() {
-        //var mysql = require('mysql');
-
-        var con = mysql.createConnection({
-            host: 'oniddb.cws.oregonstate.edu',
-            user: 'cooperph-db',
-            password: 'NKWCQdcXNLL2X6T6',
-            database: 'cooperph-db'
-        });
-
-        //con.connect();
-        
-        /*con.query("SELECT * FROM Employee", function (err,results) {
-            if(err) {
-                console.error(err);
-                return;
-            }
-            console.log(results);
-        });
-*/        
+        this.fetchUsers();
     }
+
+    fetchUsers() {
+        fetch("http://13.58.88.116:3000/users", {mode:"cors"})
+        .then(response => response.json())
+        //.then(parsedJSON => console.log(parsedJSON))
+        .then(parsedJSON => parsedJSON.map(user => (
+            {
+                name: `${user.first_name} ${user.last_name}`,
+                firstName: `${user.first_name}`,
+                lastName: `${user.last_name}`,
+                email: `${user.email}`,
+                department: `${user.department}`,
+                password: `${user.password}`,
+            }
+        )))
+        .then(serverData => this.setState({
+            serverData,
+        }))
+        .catch(error => console.log('parsing failed ', error))
+    }
+
     changeActivePage(name) {
         this.setState({
             activePage: name,
@@ -48,6 +48,8 @@ class AdminPage extends React.Component {
     }
 
     render() {
+        //console.log(this.state.serverData);
+
         let content = null;
         switch(this.state.activePage) {
             case 'stats':
@@ -57,7 +59,7 @@ class AdminPage extends React.Component {
                 content = <p>Update Admin Page</p>
                 break;
             default:
-                content = <UpdateUserInfo schema={this.state.schema} data={this.state.data} />
+                content = <UpdateUserInfo rawData={this.state.serverData}/>
         }
         return(
             <div className='admin-container'>

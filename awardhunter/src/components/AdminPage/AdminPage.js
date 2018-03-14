@@ -43,7 +43,7 @@ class AdminPage extends React.Component {
         .then(userData => this.setState({
             userData,
         }))
-        .catch(error => console.log('parsing failed ', error))
+        .catch(error => console.log('parsing failed users ', error))
     }
 
     fetchAdmin() {
@@ -63,7 +63,7 @@ class AdminPage extends React.Component {
         .then(adminData => this.setState({
             adminData,
         }))
-        .catch(error => console.log('parsing failed ', error))
+        .catch(error => console.log('parsing failed admin', error))
     }
 
     repullData(n){
@@ -90,7 +90,6 @@ class AdminPage extends React.Component {
                 break;
             case 'admin':
                 content = <UpdateAdminInfo rawData={this.state.adminData} type='Admin'/>
-                //content = <p>admin section</p>
                 break;
             default:
                 content = <UpdateUserInfo rawData={this.state.userData} type='User'/>

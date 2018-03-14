@@ -15,8 +15,12 @@ class UpdateUserInfo extends React.Component {
     }
 
     componentDidMount() {
-        this.buildSchema(this.props.rawData);
-        this.buildData(this.props.rawData);
+        if(this.props.rawData){
+            this.buildSchema(this.props.rawData);
+            this.buildData(this.props.rawData);
+        } else {
+            console.log('no props for UUI')
+        }
 
     }
 

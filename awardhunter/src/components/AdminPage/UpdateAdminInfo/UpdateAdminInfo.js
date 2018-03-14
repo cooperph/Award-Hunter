@@ -13,8 +13,12 @@ class UpdateAdminInfo extends React.Component {
     }
 
     componentDidMount() {
-        this.buildSchema(this.props.rawData);
-        this.buildData(this.props.rawData);
+        if(this.props.rawData !== null || this.props.rawData !== undefined) {
+            this.buildSchema(this.props.rawData);
+            this.buildData(this.props.rawData);
+        } else {
+            console.log('UUA no props data!');
+        }
 
     }
 

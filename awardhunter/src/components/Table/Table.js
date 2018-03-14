@@ -1,16 +1,24 @@
 import React from 'react';
 import $ from 'jquery';
+import Form from '../AdminPage/Form/Form'
 
 class Table extends React.Component {
     constructor(props) {
 		super(props);
 		this.state = {
-
+            formType: this.checkFormType(this.props.type),
+            firstName: '',
+            lastName: '',
+            department: '',
+            email: '',
+            password: '',
         };
 
         this.makeTableSchema = this.makeTableSchema.bind(this);
         this.makeButton = this.makeButton.bind(this);
         this.buttonClick = this.buttonClick.bind(this);
+        this.checkFormType = this.checkFormType.bind(this);
+        this.getFormData = this.getFormData.bind(this);
     }
 
     componentDidMount() {
@@ -56,8 +64,9 @@ class Table extends React.Component {
             })
         }
     }
+
     makeButton(type) {
-        let button = (<button className="button" id={type} onClick={this.buttonClick.bind(this, {type})}>
+        let button = (<button className="button" id={type} data-toggle='modal' modal='#myModal' onClick={this.buttonClick.bind(this, {type})}>
                 <div className={'fa fa-' + type}></div>
             </button>)
 
@@ -82,7 +91,20 @@ class Table extends React.Component {
         //         console.log('EXTERMINATE!');
         //         break;
         // }
-    })
+        })
+    }
+
+    checkFormType(props) {
+        if( props === 'Admin' ) {
+            return 2;
+        }
+        return 1;
+    }
+
+    getFormData(e) {
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
     }
     
     render() {
@@ -123,7 +145,7 @@ class Table extends React.Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            
+                            <Form type={this.props.type} getFormData={this.getFormData}/>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

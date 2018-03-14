@@ -1,5 +1,9 @@
 import React from 'react';
 import data from './data.json';
+import RecoveryPage from '../RecoveryPage/RecoveryPage';
+import NewUserPage from '../NewUserPage/NewUserPage';
+//import { Link } from 'react-router';
+//import { Redirect } from 'react-router';
 
 class LoginPage extends React.Component {
 	constructor(props) {
@@ -23,6 +27,17 @@ class LoginPage extends React.Component {
 		this.setState({
 			[event.target.name]: event.target.value
 		})
+	}
+
+
+	handleForgot() {
+		//alert('forgot');
+		//<RecoveryPage />
+	}
+
+	handleNewUser() {
+		//alert('New user');
+		//<NewUserPage />
 	}
 
 	userAuth(name, pass) {
@@ -57,6 +72,14 @@ class LoginPage extends React.Component {
 						<input type="password" name="pass" onChange={this.handleChange}/>
 						</label><br />
 						<input type='submit' value='Log In' />
+					</form>
+					<br />
+					<form onSubmit={this.handleForgot}>
+						<input type='submit' value='Forgot Password' />
+					</form>
+					<br />
+					<form onSubmit={this.handleNewUser}>
+						<input type='submit' value='New User' />
 					</form>
 				</div>
 				<p>user:user123</p>

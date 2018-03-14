@@ -6,6 +6,12 @@ use Slim\Http\Response;
 // Reference
 // https://arjunphp.com/creating-restful-api-slim-framework/
 
+// update server on git push
+$app->get('/update', function ($request, $response, $args) {
+  $output = shell_exec("../update.sh");
+  return $this->response->withJson($output);
+});
+
 // get award type
 $app->get('/award_types', function ($request, $response, $args) {
   $sth = $this->db->prepare("SELECT * FROM Award_Types");

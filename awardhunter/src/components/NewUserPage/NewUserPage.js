@@ -1,8 +1,10 @@
 import React from 'react';
 
+
 class NewUserPage extends React.Component {
     render() {
         return(
+			
             <div>
                 <h2>New User Page</h2>
 				<br />
@@ -34,6 +36,7 @@ class NewUserPage extends React.Component {
 		
 					<input type='submit' value='Create New User' />
 				</form>
+
 
 
 			<button onClick={this.props.onClick} >Click ME!</button>   

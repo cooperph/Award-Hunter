@@ -4,6 +4,7 @@ import RecoveryPage from '../RecoveryPage/RecoveryPage';
 import NewUserPage from '../NewUserPage/NewUserPage';
 //import { Link } from 'react-router';
 //import { Redirect } from 'react-router';
+//import Hyperlink from 'react-native-hyperlink';
 
 class LoginPage extends React.Component {
 	constructor(props) {
@@ -11,12 +12,23 @@ class LoginPage extends React.Component {
 		this.state = {
 			email: '',
 			pass: ''
+
+			//changePage: ''
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.userAuth = this.userAuth.bind(this);
-	}
 
+		//this.changePage = this.changePage.bind(this);
+
+	}
+/*
+	changeToPage(name) {
+        this.setState({
+            changePage: name,
+        })
+    }
+*/
 	handleSubmit(event) {
 		event.preventDefault();
 		let temp = this.userAuth(this.state.email, this.state.pass);
@@ -75,11 +87,11 @@ class LoginPage extends React.Component {
 					</form>
 					<br />
 					<form onSubmit={this.handleForgot}>
-						<input type='submit' value='Forgot Password' />
+						<input type='submit' value='Forgot Password' name='ForgotPassword'/>
 					</form>
 					<br />
 					<form onSubmit={this.handleNewUser}>
-						<input type='submit' value='New User' />
+						<input type='submit' value='New User' name='NewUser'/>
 					</form>
 				</div>
 				<p>user:user123</p>

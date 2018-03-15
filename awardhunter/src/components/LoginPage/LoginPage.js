@@ -94,8 +94,8 @@ class LoginPage extends React.Component {
 								<RecoveryPage />
 							</div>
 							<div className="modal-footer">
-								<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button>
+								{/* <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button> */}
 							</div>
 							</div>
 						</div>
@@ -122,8 +122,8 @@ class LoginPage extends React.Component {
 								<NewUserPage />
 							</div>
 							<div className="modal-footer">
-								<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button>
+								{/* <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button> */}
 							</div>
 							</div>
 						</div>

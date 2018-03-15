@@ -10,12 +10,18 @@ class SideBar extends React.Component {
         };
 
     this.handleClick = this.handleClick.bind(this);
+    this.logoutButon = this.logoutButon.bind(this);
     }
 
     handleClick(e) {
         e.preventDefault();
 		let temp = e.target.id;
 		this.props.onClick(temp)
+    }
+
+    logoutButon() {
+        console.log('pressed log out button!')
+        this.props.logOut();
     }
 
     render() {
@@ -28,7 +34,7 @@ class SideBar extends React.Component {
                     </div>
                     <div className="w3-col s8 w3-bar">
                         <span>Welcome, <strong>{this.props.user ? this.props.user : 'USER NAME'}</strong></span><br/>
-                        <button>Logout</button>
+                        <button onClick={this.logoutButon}>Logout</button>
                     </div>
                 </div>
                 <hr />

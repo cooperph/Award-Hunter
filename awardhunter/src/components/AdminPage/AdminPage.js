@@ -29,9 +29,10 @@ class AdminPage extends React.Component {
     fetchUsers() {
         fetch("http://13.58.88.116:3000/users", {mode:"cors"})
         .then(response => response.json())
-        //.then(parsedJSON => console.log(parsedJSON))
+        //console.log('fetch users - ',response.json())
         .then(parsedJSON => parsedJSON.map(user => (
             {
+                id: `${user.id}`,
                 name: `${user.first_name} ${user.last_name}`,
                 firstName: `${user.first_name}`,
                 lastName: `${user.last_name}`,
@@ -52,6 +53,7 @@ class AdminPage extends React.Component {
         //.then(parsedJSON => console.log(parsedJSON))
         .then(parsedJSON => parsedJSON.map(user => (
             {
+                id: `${user.id}`,
                 name: `${user.first_name} ${user.last_name}`,
                 firstName: `${user.first_name}`,
                 lastName: `${user.last_name}`,
@@ -97,7 +99,7 @@ class AdminPage extends React.Component {
         return(
             <div className='admin-container'>
                 <div className='sidebar'>
-                    <SideBar user={this.props.user} onClick={this.changeActivePage}/>
+                    <SideBar user={this.props.user} onClick={this.changeActivePage} logOut={this.props.logOut}/>
                 </div>
                 <div className='main-admin'>
                     {content}

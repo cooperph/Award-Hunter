@@ -32,7 +32,7 @@ class UserPage extends React.Component {
         return(
             <div className='admin-container'>
                 <div className='sidebar'>
-                    <SideBar user={this.props.user} onClick={this.changeActivePage}/>
+                    <SideBar user={this.props.user} onClick={this.changeActivePage} logOut={this.props.logOut}/>
                 </div>
                 <div className='main-admin'>
                     {content}

@@ -60,12 +60,8 @@ class NewUserPage extends React.Component {
 						<label>Password: </label>
 						<input name='password' type='password' placeholder='Password' value={this.state.password} onChange={this.onChange} />
 					</div>
-					<div className='form-group'>
-						<label>Account Type: </label>
-						<input name='accounttype' value={this.props.type} disabled/>
-					</div>
 				</div>
-				<button className='btn btn-primary' onClick={this.handleSubmit}>Click ME!</button>   
+				<button className='btn btn-primary' onClick={this.handleSubmit}>Create Account</button>   
 			</div>
         )
     }

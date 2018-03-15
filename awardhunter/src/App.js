@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import UserPage from './components/UserPage/UserPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import AdminPage from './components/AdminPage/AdminPage';
-import NewUserPage from './components/NewUserPage/NewUserPage';
-import RecoveryPage from './components/RecoveryPage/RecoveryPage';
+//import NewUserPage from './components/NewUserPage/NewUserPage';
+//import RecoveryPage from './components/RecoveryPage/RecoveryPage';
 import './App.css';
 
 class App extends Component {
@@ -15,6 +15,7 @@ class App extends Component {
     };
 
     this.handleLogIn = this.handleLogIn.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   handleLogIn(array){
@@ -24,16 +25,21 @@ class App extends Component {
     })
   }
 
+  handleLogOut() {
+    this.setState({
+      userType: '',
+      userName: ''
+    })
+  }
+
   render() {
     let content = null;
     switch(this.state.userType){
       case 'user':
-        content = <UserPage />
-        //content = <RecoveryPage />
-        //content = <NewUserPage />
+        content = <UserPage user={this.state.userName} logOut={this.handleLogOut}/>
         break;
       case 'admin':
-        content = <AdminPage user={this.state.userName}/>
+        content = <AdminPage user={this.state.userName} logOut={this.handleLogOut}/>
         break;
       default:
         content = <LoginPage onClick={this.handleLogIn} />

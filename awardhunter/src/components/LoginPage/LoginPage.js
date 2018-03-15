@@ -74,13 +74,61 @@ class LoginPage extends React.Component {
 						<input type='submit' value='Log In' />
 					</form>
 					<br />
-					<form onSubmit={this.handleForgot}>
+					{/* <form onSubmit={this.handleForgot}>
 						<input type='submit' value='Forgot Password' />
-					</form>
+					</form> */}
+					<div>
+						<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#forgotPassword">
+							Forgot Password?
+						</button>
+						<div className="modal fade" id="forgotPassword" tabIndex="-1">
+						<div className="modal-dialog" role="document">
+							<div className="modal-content">
+							<div className="modal-header">
+								<h5 className="modal-title" id="exampleModalLabel">Add New {this.props.type}</h5>
+								<button type="button" className="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div className="modal-body">
+								<RecoveryPage />
+							</div>
+							<div className="modal-footer">
+								<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button>
+							</div>
+							</div>
+						</div>
+						</div>
+					</div>
 					<br />
-					<form onSubmit={this.handleNewUser}>
+					{/* <form onSubmit={this.handleNewUser}>
 						<input type='submit' value='New User' />
-					</form>
+					</form> */}
+					<div>
+						<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#newUser">
+							New User
+						</button>
+						<div className="modal fade" id="newUser" tabIndex="-1">
+						<div className="modal-dialog" role="document">
+							<div className="modal-content">
+							<div className="modal-header">
+								<h5 className="modal-title" id="exampleModalLabel">Add New {this.props.type}</h5>
+								<button type="button" className="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div className="modal-body">
+								<NewUserPage />
+							</div>
+							<div className="modal-footer">
+								<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button>
+							</div>
+							</div>
+						</div>
+						</div>
+					</div>
 				</div>
 				<p>user:user123</p>
 				<p>admin:admin123</p>

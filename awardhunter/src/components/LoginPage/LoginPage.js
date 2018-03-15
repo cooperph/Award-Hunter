@@ -62,23 +62,22 @@ class LoginPage extends React.Component {
                 <header className='w3-container w3-center'>
                     <h1>Welcome to AwardHunter</h1>
                     <p>Please login to get started!</p>
-                </header>   
+                </header>
                 <div className='w3-container w3-center'>
-					<form onSubmit={this.handleSubmit}>
-						<label>Username:
-						<input type="text" name="email" onChange={this.handleChange} />
-						</label><br />
-						<label>Password:
-						<input type="password" name="pass" onChange={this.handleChange}/>
-						</label><br />
-						<input type='submit' value='Log In' />
-					</form>
+				<div className="form">
+					<div className='form-group'>
+						<label>Email: </label>
+						<input name='email' input='text' placeholder='email address' value={this.state.email} onChange={this.handleChange} />
+					</div>
+					<div className='form-group'>
+						<label>Password: </label>
+						<input name='pass' input='text' placeholder='password' value={this.state.password} onChange={this.handleChange} />
+					</div>
+					<button className='btn btn-primary' onClick={this.handleSubmit}>Log In</button>
+				</div>
 					<br />
-					{/* <form onSubmit={this.handleForgot}>
-						<input type='submit' value='Forgot Password' />
-					</form> */}
 					<div>
-						<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#forgotPassword">
+						<button type="button" className="btn btn-link" data-toggle="modal" data-target="#forgotPassword">
 							Forgot Password?
 						</button>
 						<div className="modal fade" id="forgotPassword" tabIndex="-1">
@@ -94,19 +93,15 @@ class LoginPage extends React.Component {
 								<RecoveryPage />
 							</div>
 							<div className="modal-footer">
-								{/* <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button> */}
+								{/* Put Footer Data Here */}
 							</div>
 							</div>
 						</div>
 						</div>
 					</div>
 					<br />
-					{/* <form onSubmit={this.handleNewUser}>
-						<input type='submit' value='New User' />
-					</form> */}
 					<div>
-						<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#newUser">
+						<button type="button" className="btn btn-link" data-toggle="modal" data-target="#newUser">
 							New User
 						</button>
 						<div className="modal fade" id="newUser" tabIndex="-1">
@@ -122,8 +117,7 @@ class LoginPage extends React.Component {
 								<NewUserPage />
 							</div>
 							<div className="modal-footer">
-								{/* <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button> */}
+							{/* Put footer Data Here */}
 							</div>
 							</div>
 						</div>

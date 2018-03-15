@@ -6,6 +6,29 @@ use Slim\Http\Response;
 // Reference
 // https://arjunphp.com/creating-restful-api-slim-framework/
 
+// update server on git push
+$app->get('/update', function ($request, $response, $args) {
+  $output = shell_exec("../update.sh");
+  return $this->response->withJson($output);
+});
+
+// login user
+$app->post('/user/login', function ($request, $response) {
+  $input = $request->getParsedBody();
+  $sth = $this->db->prepare("SELECT id, first_name, last_name, department, account_type FROM Employee WHERE email=:email AND password=:password");
+  $sth->bindParam("email", $input['email']);
+  $sth->bindParam("password", $input['password']);
+  $sth->execute();
+  $users = $sth->fetchAll();
+  if (sizeof($users) > 0) {
+    $user = $users[0];
+    return $this->response->withJson($user);
+  }
+  $empty_object = new stdClass();
+  return $this->response->withJson($empty_object, 401);
+});
+
+
 // get award type
 $app->get('/award_types', function ($request, $response, $args) {
   $sth = $this->db->prepare("SELECT * FROM Award_Types");

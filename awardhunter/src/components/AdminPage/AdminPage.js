@@ -79,11 +79,11 @@ class AdminPage extends React.Component {
                 awardType: `${user.award_name}`,
                 gotName: `${user.got_award_first_name} ${user.got_award_last_name}`,
                 gaveName: `${user.gave_award_first_name} ${user.gave_award_last_name}`,
-                department: `${user.got_department}`,
+                department: `${user.got_award_department}`,
             }
         )))
-        .then(adminData => this.setState({
-            adminData,
+        .then(statsData => this.setState({
+            statsData,
         }))
         .catch(error => console.log('parsing failed admin', error))
     }
@@ -102,11 +102,6 @@ class AdminPage extends React.Component {
                 this.fetchUsers();
                 break;
         }
-        // if(n === 'admin'){
-        //     this.fetchAdmin();
-        // } else {
-        //     this.fetchUsers();
-        // }
     }
 
     changeActivePage(name) {
@@ -116,12 +111,10 @@ class AdminPage extends React.Component {
     }
 
     render() {
-        //console.log(this.state.serverData);
-
         let content = null;
         switch(this.state.activePage) {
             case 'Stats':
-                content = <StatsPage rawrData={this.state.statsData}
+                content = <StatsPage rawData={this.state.statsData}
                     repull={this.repullData} type='Stats' />;
                 break;
             case 'Admin':

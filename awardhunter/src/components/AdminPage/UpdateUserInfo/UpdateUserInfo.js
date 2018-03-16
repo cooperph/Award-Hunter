@@ -15,7 +15,7 @@ class UpdateUserInfo extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.rawData !== null || this.props.rawData !== undefined){
+        if(this.props.rawData !== null && this.props.rawData !== undefined){
             this.buildSchema(this.props.rawData);
             this.buildData(this.props.rawData);
         } else {

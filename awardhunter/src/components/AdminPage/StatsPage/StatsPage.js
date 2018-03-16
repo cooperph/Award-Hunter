@@ -8,7 +8,7 @@ class StatsPage extends React.Component {
         super(props);
         this.state = {
           //activePage: 'tab1',
-          schema: ['Award Type', 'Got Award', 'Department', 'Gave Award'],
+          schema: ['Award Type', 'Got Award', 'Gave Award', 'Department'],
           data:[]
         };
 
@@ -17,16 +17,16 @@ class StatsPage extends React.Component {
       }
     
     componentDidMount() {
-        if(this.props.rawData !== null || this.props.rawData !== undefined){
+        if(this.props.rawData !== null && this.props.rawData !== undefined){
             this.buildData(this.props.rawData);
-        } else {
-            console.log('no props for StatsPage')
-        }
+        } 
     }
 
     componentWillReceiveProps(nextProps) {
-        if( nextProps !== this.props ) {
-            this.buildData(nextProps);
+        if(nextProps.rawData !== null && nextProps.rawData !== undefined && nextProps.rawData.length > 0){
+            if( nextProps !== this.props ) {
+                this.buildData(nextProps);
+            }
         }
     }
 
@@ -38,8 +38,21 @@ class StatsPage extends React.Component {
     //     }
     // }
 
-    buildData(rawData) {
-        console.log('stats - raw ',rawData)
+    buildData(data) {
+        //console.log('stats - raw ',rawData)
+        if(data.rawData){
+            let newData = [];
+            for( var i = 0; i < data.rawData.length; i++) {
+                let innerData = [];
+                innerData = Object.values(data.rawData[i])
+                newData.push(innerData)
+            }
+            if(this.refs.statsRef){
+                this.setState({
+                    data: newData,
+                })
+            }
+        }
     }
 
     render() {
@@ -73,7 +86,8 @@ class StatsPage extends React.Component {
                 <h1>Statictics</h1>
                 <hr />
                 <Table schema={this.state.schema} data={this.state.data} 
-                        type={this.props.type} buttons='false'/>
+                        type={this.props.type} repull={this.props.repull}
+                        buttons='false'/>
             </div>
             </div>
         )

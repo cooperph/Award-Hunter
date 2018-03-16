@@ -54,13 +54,13 @@ class Table extends React.Component {
             let tableData = data.data.map((m1, idx) => {
                 return <tr key={'row-'+idx}>
                         {m1.map((m2) => {
-                            return <td key={m2}>{m2}</td>
+                            return <td key={m2 + '_' + idx + '_' + this.props.type}>{m2}</td>
                         })}
                         { this.props.buttons === 'true' ? (
-                            <td key={idx + '_edit'}>{this.makeButton('edit')}</td>
+                            <td key={idx + '_edit_' + this.props.type}>{this.makeButton('edit')}</td>
                         ) : ('') }
                         { this.props.buttons === 'true' ? (
-                            <td key={idx + '_delete'}>{this.makeButton('window-close')}</td>
+                            <td key={idx + '_delete_' + this.props.type}>{this.makeButton('window-close')}</td>
                         ) : ('') }
                     </tr>
             })
@@ -71,7 +71,7 @@ class Table extends React.Component {
     }
 
     makeButton(type) {
-        let button = (<button className="button" id={type} data-toggle='modal' modal={'#'+type} onClick={this.buttonClick.bind(this, {type})}>
+    let button = (<button className="btn button" id={type} data-toggle='modal' modal='#edit' onClick={this.buttonClick.bind(this, {type})}>
                 <div className={'fa fa-' + type}></div>
             </button>)
 
@@ -174,6 +174,44 @@ class Table extends React.Component {
                         </div>
                     </div>
                 ) : ('')}
+                <div className="modal fade" id="edit" tabIndex="-1">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Add New {this.props.type}</h5>
+                            <button type="button" className="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <p>OMG EDIT MODAL!</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss='modal'>Create Account</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="modal fade" id="Delete" tabIndex="-1">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Add New {this.props.type}</h5>
+                            <button type="button" className="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <p>OMG DELETE MODAL!</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss='modal'>Create Account</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -19,6 +19,7 @@ class Table extends React.Component {
         this.buttonClick = this.buttonClick.bind(this);
         this.checkFormType = this.checkFormType.bind(this);
         this.getFormData = this.getFormData.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -70,7 +71,7 @@ class Table extends React.Component {
     }
 
     makeButton(type) {
-        let button = (<button className="button" id={type} data-toggle='modal' modal='#myModal' onClick={this.buttonClick.bind(this, {type})}>
+        let button = (<button className="button" id={type} data-toggle='modal' modal={'#'+type} onClick={this.buttonClick.bind(this, {type})}>
                 <div className={'fa fa-' + type}></div>
             </button>)
 
@@ -87,14 +88,6 @@ class Table extends React.Component {
         })
         console.log(tableData);
 
-        // switch(id.type) {
-        //     case 'edit':
-        //         console.log('EDITING!!!!');
-        //         break;
-        //     default:
-        //         console.log('EXTERMINATE!');
-        //         break;
-        // }
         })
     }
 
@@ -110,6 +103,28 @@ class Table extends React.Component {
             [e.target.name]: e.target.value,
         })
     }
+
+    handleSubmit(e) {
+        e.preventDefault();
+    
+        var FormData = require('form-data');
+        var form = new FormData();
+        form.append('first_name', this.state.firstName);
+        form.append('last_name', this.state.lastName);
+        form.append('email', this.state.email);
+        form.append('password', this.state.password);
+        form.append('department', this.state.department);
+        form.append('image', '');
+        form.append('account_type', this.state.formType);
+    
+        fetch('http://13.58.88.116:3000/user', {
+          method: 'POST',
+          body: form,
+        }).then(function(data) {
+          console.log(data);
+        });
+        this.props.repull(this.props.type)
+      }
     
     render() {
         $('.button').click(function() {
@@ -126,11 +141,9 @@ class Table extends React.Component {
             <div ref='tableRef'>
                 <table className="table table-striped table-bordered table-hover">
                     <thead>
-                        {/* {this.makeTableSchema()} */}
                         {this.state.schema}
                     </thead>
                     <tbody>
-                        {/* {this.makeTableBody()} */}
                         {this.state.data}
                     </tbody>
                 </table>
@@ -154,37 +167,13 @@ class Table extends React.Component {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button>
+                                <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss='modal'>Create Account</button>
                             </div>
                             </div>
                         </div>
                         </div>
                     </div>
                 ) : ('')}
-                {/* <div>
-                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                        Create New {this.props.type}
-                    </button>
-                    <div className="modal fade" id="myModal" tabIndex="-1">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add New {this.props.type}</h5>
-                            <button type="button" className="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <Form type={this.props.type} getFormData={this.getFormData}/>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" data-dismiss='modal'>Save changes</button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div> */}
             </div>
         )
     }

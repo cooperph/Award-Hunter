@@ -71,7 +71,8 @@ class UpdateUserInfo extends React.Component {
                 <h1>Update User Data</h1>
                 <hr />
                 <Table schema={this.state.schema} data={this.state.data} 
-                        type={this.props.type} buttons='true'/>
+                        type={this.props.type} repull={this.props.repull}
+                        buttons='true'/>
             </div>
         )
     }

@@ -25,7 +25,6 @@ class NewUserPage extends React.Component {
   
   handleSubmit(e) {
     e.preventDefault();
-    //console.log(this.state);
 
     var FormData = require('form-data');
     var form = new FormData();

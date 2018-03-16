@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import UserPage from './components/UserPage/UserPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import AdminPage from './components/AdminPage/AdminPage';
-//import NewUserPage from './components/NewUserPage/NewUserPage';
-//import RecoveryPage from './components/RecoveryPage/RecoveryPage';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userType: '',
+      userType: 'admin',
       userName: ''
     };
 

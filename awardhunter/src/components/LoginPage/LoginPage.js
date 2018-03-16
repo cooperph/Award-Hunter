@@ -14,13 +14,39 @@ class LoginPage extends React.Component {
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.userAuth = this.userAuth.bind(this);
+		// this.userAuth = this.userAuth.bind(this);
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
-		let temp = this.userAuth(this.state.email, this.state.pass);
-		this.props.onClick(temp)
+		// let temp = this.userAuth(this.state.email, this.state.pass);
+		// this.props.onClick(temp)
+		
+		var FormData = require('form-data');
+		var form = new FormData();
+		form.append('email', this.state.email);
+		form.append('password', this.state.pass);
+
+		fetch('http://13.58.88.116:3000/user/login', {
+		  method: 'POST',
+		  body: form,
+		})
+		.then(response => response.json())
+		.then(pasrsedJSON => {			
+			if (Object.keys(pasrsedJSON).length == 0) {
+				alert('Invalid Password, please try again');
+			}
+
+			var account, name;
+			if (pasrsedJSON["account_type"] == 1) {
+				account = 'user'
+			} else if (pasrsedJSON["account_type"] == 2) {
+				account = 'admin'
+			}
+			name = pasrsedJSON["first_name"] + " " + pasrsedJSON["last_name"]
+			let values = [account, name];
+			this.props.onClick(values);
+		});
 	}
 
 	handleChange(event) {
@@ -40,22 +66,23 @@ class LoginPage extends React.Component {
 		//<NewUserPage />
 	}
 
-	userAuth(name, pass) {
-		for(var i = 0; i < data.users.length; i++) {
-			if(data.users[i].name === name) {
-				if(data.users[i].password === pass) {
-					let values = [data.users[i].accountType, data.users[i].name];
-					return values;
-				}
-				else {
-					alert('Invalid Password, please try again');
-					return '';
-				}
-			}
-		}
-		alert(name + ' is not a valid username, try again');
-		return ''
-	}
+	// userAuth(name, pass) {
+	// 	for(var i = 0; i < data.users.length; i++) {
+	// 		if(data.users[i].name === name) {
+	// 			if(data.users[i].password === pass) {
+	// 				let values = [data.users[i].accountType, data.users[i].name];
+	// 				return values;
+	// 			}
+	// 			else {
+	// 				alert('Invalid Password, please try again');
+	// 				return '';
+	// 			}
+	// 		}
+	// 	}
+	// 	alert(name + ' is not a valid username, try again');
+	// 	return ''
+	// }
+
     render() {
         return(
             <div className='w3-content w3-padding-32'>
@@ -124,9 +151,14 @@ class LoginPage extends React.Component {
 						</div>
 					</div>
 				</div>
-				<p>user:user123</p>
-				<p>admin:admin123</p>
-            </div>
+				
+				<p>Normal User:</p>
+				<p>email: a@b.com</p>
+				<p>password: ab123</p>
+				<p>Admin User:</p>
+				<p>email: c@d.com</p>
+				<p>password: cd123</p>
+				</div>
         )
     }
 }

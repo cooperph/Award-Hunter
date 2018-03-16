@@ -67,11 +67,11 @@ class LoginPage extends React.Component {
 				<div className="form">
 					<div className='form-group'>
 						<label>Email: </label>
-						<input name='email' input='text' placeholder='email address' value={this.state.email} onChange={this.handleChange} />
+						<input name='email' input='text' value={this.state.email} onChange={this.handleChange} />
 					</div>
 					<div className='form-group'>
 						<label>Password: </label>
-						<input name='pass' input='text' placeholder='password' value={this.state.password} onChange={this.handleChange} />
+						<input name='pass' input='text' value={this.state.password} onChange={this.handleChange} />
 					</div>
 					<button className='btn btn-primary' onClick={this.handleSubmit}>Log In</button>
 				</div>

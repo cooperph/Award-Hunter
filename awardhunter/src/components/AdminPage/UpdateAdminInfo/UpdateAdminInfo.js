@@ -23,9 +23,11 @@ class UpdateAdminInfo extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if( nextProps !== this.props ) {
-            this.buildSchema(nextProps);
-            this.buildData(nextProps);
+        if(nextProps.rawData !== null && nextProps.rawData !== undefined && nextProps.rawData.length > 0){
+            if( nextProps !== this.props ) {
+                this.buildSchema(nextProps);
+                this.buildData(nextProps);
+            }
         }
     }
     
@@ -66,7 +68,7 @@ class UpdateAdminInfo extends React.Component {
                 <h1>Update Admin Data</h1>
                 <hr />
                 <Table schema={this.state.schema} data={this.state.data} 
-                        type={this.props.type}/>
+                        type={this.props.type} buttons='true'/>
             </div>
         )
     }

@@ -37,7 +37,7 @@ class RecoveryPage extends React.Component {
 	            <h5>Enter your email to recover password:</h5>
                 <form>
                     <label>Email Address:  </label>
-                        <input name='email' type='email' placeholder='Email@email.com' value={this.state.email} onChange={this.onChange} />
+                        <input name='email' type='email' value={this.state.email} onChange={this.onChange} />
                     <br />
                     <button className='btn btn-primary' onClick={this.handleSubmit}>Get Password</button>   
                 </form>

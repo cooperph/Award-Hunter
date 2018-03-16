@@ -34,11 +34,11 @@ class NewUserPage extends React.Component {
 				<div className="form">
 					<div className='form-group'>
 						<label>First Name: </label>
-						<input name='firstName' input='text' placeholder='First Name' value={this.state.firstName} onChange={this.onChange} />
+						<input name='firstName' input='text' value={this.state.firstName} onChange={this.onChange} />
 					</div>
 					<div className='form-group'>
 						<label>Last Name: </label>
-						<input name='lastName' input='text' placeholder='Last Name' value={this.state.lastName} onChange={this.onChange} />
+						<input name='lastName' input='text' value={this.state.lastName} onChange={this.onChange} />
 					</div>
 					<div className='form-group'>
 						<label>Department: </label>
@@ -54,11 +54,11 @@ class NewUserPage extends React.Component {
 					</div>
 					<div className='form-group'>
 						<label>Email: </label>
-						<input name='email' type='email' placeholder='Email@email.com' value={this.state.email} onChange={this.onChange} />
+						<input name='email' type='email' value={this.state.email} onChange={this.onChange} />
 					</div>
 					<div className='form-group'>
 						<label>Password: </label>
-						<input name='password' type='password' placeholder='Password' value={this.state.password} onChange={this.onChange} />
+						<input name='password' type='password' value={this.state.password} onChange={this.onChange} />
 					</div>
 
 				</div>

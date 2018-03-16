@@ -25,9 +25,11 @@ class UpdateUserInfo extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if( nextProps !== this.props ) {
-            this.buildSchema(nextProps);
-            this.buildData(nextProps);
+        if(nextProps.rawData !== null && nextProps.rawData !== undefined && nextProps.rawData.length > 0){
+            if( nextProps !== this.props ) {
+                this.buildSchema(nextProps);
+                this.buildData(nextProps);
+            }
         }
 
     }
@@ -64,12 +66,12 @@ class UpdateUserInfo extends React.Component {
 
     render() {
         return(
-            <div ref='userRef'>
+            <div ref='userRef' style={{overflowY:'scroll', height:'90vh'} }>
                 <br/>
                 <h1>Update User Data</h1>
                 <hr />
                 <Table schema={this.state.schema} data={this.state.data} 
-                        type={this.props.type}/>
+                        type={this.props.type} buttons='true'/>
             </div>
         )
     }

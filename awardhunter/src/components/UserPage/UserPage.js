@@ -1,6 +1,7 @@
 import React from 'react';
 import SideBar from './SideBar/SideBar'
 import GiveAward from './GiveAward/GiveAward'
+import ManageAccount from './ManageAccout/ManageAccount'
 
 require('./UserPage.css')
 
@@ -24,7 +25,7 @@ class UserPage extends React.Component {
         let content = null;
         switch(this.state.activePage) {
             case 'manage':
-                content = <p>Third Page</p>;
+                content = <ManageAccount />
                 break;
             default:
                 content = <GiveAward />

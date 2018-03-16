@@ -50,7 +50,7 @@ class RecoveryPage extends React.Component {
                     <label>Email Address:  </label>
                         <input name='email' type='email' value={this.state.email} onChange={this.onChange} />
                     <br />
-                    <button className='btn btn-primary' onClick={this.handleSubmit}>Get Password</button>   
+                    <button className='btn btn-primary' onClick={this.handleSubmit} data-dismiss='modal'>Get Password</button>   
                 </form>
                 
            	</div>

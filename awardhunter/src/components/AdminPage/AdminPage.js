@@ -89,11 +89,24 @@ class AdminPage extends React.Component {
     }
 
     repullData(n){
-        if(n === 'admin'){
-            this.fetchAdmin();
-        } else {
-            this.fetchUsers();
+        switch(n){
+            case 'Admin': {
+                this.fetchAdmin()
+                break;
+            }
+            case 'Stats': {
+                this.fetchStats()
+                break;
+            }
+            default:
+                this.fetchUsers();
+                break;
         }
+        // if(n === 'admin'){
+        //     this.fetchAdmin();
+        // } else {
+        //     this.fetchUsers();
+        // }
     }
 
     changeActivePage(name) {
@@ -107,14 +120,17 @@ class AdminPage extends React.Component {
 
         let content = null;
         switch(this.state.activePage) {
-            case 'stats':
-                content = <StatsPage rawrData={this.state.statsData}/>;
+            case 'Stats':
+                content = <StatsPage rawrData={this.state.statsData}
+                    repull={this.repullData} type='Stats' />;
                 break;
-            case 'admin':
-                content = <UpdateAdminInfo rawData={this.state.adminData} type='Admin'/>
+            case 'Admin':
+                content = <UpdateAdminInfo rawData={this.state.adminData} 
+                    repull={this.repullData} type='Admin'/>
                 break;
             default:
-                content = <UpdateUserInfo rawData={this.state.userData} type='User'/>
+                content = <UpdateUserInfo rawData={this.state.userData} 
+                    repull={this.repullData} type='User'/>
         }
         return(
             <div className='admin-container'>

@@ -29,6 +29,17 @@ class RecoveryPage extends React.Component {
         // check database with api call
         // if 200 ok to send password
         // if 401 error message, try again
+
+        var FormData = require('form-data');
+        var form = new FormData();
+        form.append('email', this.state.email);
+
+        fetch('http://13.58.88.116:3000/user/forgot_password', {
+          method: 'POST',
+          body: form,
+        }).then(function(data) {
+          console.log(data);
+        });
     }
     
     render() {

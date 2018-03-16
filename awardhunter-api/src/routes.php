@@ -7,9 +7,27 @@ use Slim\Http\Response;
 // https://arjunphp.com/creating-restful-api-slim-framework/
 
 // update server on git push
-$app->get('/update', function ($request, $response, $args) {
+$app->post('/update', function ($request, $response, $args) {
   $output = shell_exec("../update.sh");
   return $this->response->withJson($output);
+});
+
+// forgot password
+$app->post('/user/forgot_password', function ($request, $response) {
+  $input = $request->getParsedBody();
+  $sth = $this->db->prepare("SELECT id, email, password FROM Employee WHERE email=:email");
+  $sth->bindParam("email", $input['email']);
+  $sth->execute();
+  $users = $sth->fetchAll();
+  if (sizeof($users) > 0) {
+    // send email to user
+    $user = $users[0];
+    include 'email/forgot_password_email.php';
+    
+    return $this->response->withJson($user);
+  }
+  $empty_object = new stdClass();
+  return $this->response->withJson($empty_object, 401);
 });
 
 // login user

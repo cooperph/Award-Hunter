@@ -20,7 +20,7 @@ class SideBar extends React.Component {
     }
 
     logoutButon() {
-        console.log('pressed log out button!')
+        //console.log('pressed log out button!')
         this.props.logOut();
     }
 

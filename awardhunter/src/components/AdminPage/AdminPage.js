@@ -12,7 +12,8 @@ class AdminPage extends React.Component {
 		this.state = {
             activePage: '',
             userData: [],
-            adminData: []
+            adminData: [],
+            statsData: [],
 		};
         
         this.fetchUsers = this.fetchUsers.bind(this);
@@ -24,6 +25,7 @@ class AdminPage extends React.Component {
     componentDidMount() {
         this.fetchUsers();
         this.fetchAdmin();
+        this.fetchStats();
     }
 
     fetchUsers() {
@@ -68,6 +70,24 @@ class AdminPage extends React.Component {
         .catch(error => console.log('parsing failed admin', error))
     }
 
+    fetchStats() {
+        fetch("http://13.58.88.116:3000/awards", {mode:"cors"})
+        .then(response => response.json())
+        //.then(parsedJSON => console.log(parsedJSON.results))
+        .then(parsedJSON => parsedJSON.map(user => (
+            {
+                awardType: `${user.award_name}`,
+                gotName: `${user.got_award_first_name} ${user.got_award_last_name}`,
+                gaveName: `${user.gave_award_first_name} ${user.gave_award_last_name}`,
+                department: `${user.got_department}`,
+            }
+        )))
+        .then(adminData => this.setState({
+            adminData,
+        }))
+        .catch(error => console.log('parsing failed admin', error))
+    }
+
     repullData(n){
         if(n === 'admin'){
             this.fetchAdmin();
@@ -88,7 +108,7 @@ class AdminPage extends React.Component {
         let content = null;
         switch(this.state.activePage) {
             case 'stats':
-                content = <StatsPage />;
+                content = <StatsPage rawrData={this.state.statsData}/>;
                 break;
             case 'admin':
                 content = <UpdateAdminInfo rawData={this.state.adminData} type='Admin'/>

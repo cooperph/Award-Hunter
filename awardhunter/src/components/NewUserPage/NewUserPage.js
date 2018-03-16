@@ -25,7 +25,7 @@ class NewUserPage extends React.Component {
   
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
+    //console.log(this.state);
 
     var FormData = require('form-data');
     var form = new FormData();
@@ -79,7 +79,7 @@ class NewUserPage extends React.Component {
         </div>
 
       </div>
-      <button className='btn btn-primary' onClick={this.handleSubmit}>Create New User</button>   
+      <button className='btn btn-primary' onClick={this.handleSubmit} data-dismiss='modal'>Create New User</button>   
     </div>
       )
   }

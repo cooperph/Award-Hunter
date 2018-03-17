@@ -42,6 +42,12 @@ class SideBar extends React.Component {
                     <div className='w3-bar-item w3-button' id='User' onClick={this.handleClick}><i className="fas fa-users"></i> Manage Users</div>
                     <div className='w3-bar-item w3-button' id='Admin' onClick={this.handleClick}><i className="fas fa-user-secret"></i> Manage Admin</div>
                     <div className='w3-bar-item w3-button' id='Stats' onClick={this.handleClick}><i className="fas fa-table"></i> Statistics</div>
+                    <a href='http://13.58.88.116:3000/csv_got_award' target='_blank'>
+                        <div className='w3-bar-item w3-button'><i className="fas fa-file-excel noUnderline"></i> Got Awards - CSV</div>
+                    </a>
+                    <a href='http://13.58.88.116:3000/csv_gave_award' target='_blank'>
+                        <div className='w3-bar-item w3-button'><i className="fas fa-file-excel"></i> Gave Awards - CSV</div>
+                    </a>
                 </div>
             </div>
         )

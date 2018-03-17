@@ -9,8 +9,12 @@ class App extends Component {
     super(props);
     this.state = {
       userType: '',
+<<<<<<< HEAD
+      userName: ''
+=======
       userName: '',
       uesrId: '',
+>>>>>>> master
     };
 
     this.handleLogIn = this.handleLogIn.bind(this);

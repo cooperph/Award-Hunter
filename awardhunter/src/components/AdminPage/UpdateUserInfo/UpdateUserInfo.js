@@ -38,8 +38,8 @@ class UpdateUserInfo extends React.Component {
         if(data.rawData){
             let temp = data.rawData[0];
             let newSchema = Object.keys(temp);
-            newSchema.push('Edit');
-            newSchema.push('Delete');
+            //newSchema.push('Edit');
+            //newSchema.push('Delete');
             if(this.refs.userRef){
                 this.setState({
                     schema: newSchema,

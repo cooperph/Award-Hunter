@@ -1,6 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
 import Form from '../AdminPage/Form/Form'
+import Edit from '../AdminPage/Form/Edit'
+import Delete from '../AdminPage/Form/Delete'
+
+require('./Table.css')
 
 class Table extends React.Component {
     constructor(props) {
@@ -12,14 +16,16 @@ class Table extends React.Component {
             department: '',
             email: '',
             password: '',
+            idNo: '',
         };
 
         this.makeTableSchema = this.makeTableSchema.bind(this);
         this.makeButton = this.makeButton.bind(this);
-        this.buttonClick = this.buttonClick.bind(this);
+        //this.buttonClick = this.buttonClick.bind(this);
         this.checkFormType = this.checkFormType.bind(this);
         this.getFormData = this.getFormData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -56,12 +62,12 @@ class Table extends React.Component {
                         {m1.map((m2) => {
                             return <td key={m2 + '_' + idx + '_' + this.props.type}>{m2}</td>
                         })}
-                        { this.props.buttons === 'true' ? (
+                        {/* { this.props.buttons === 'true' ? (
                             <td key={idx + '_edit_' + this.props.type}>{this.makeButton('edit')}</td>
                         ) : ('') }
                         { this.props.buttons === 'true' ? (
                             <td key={idx + '_delete_' + this.props.type}>{this.makeButton('window-close')}</td>
-                        ) : ('') }
+                        ) : ('') } */}
                     </tr>
             })
             this.setState({
@@ -71,25 +77,26 @@ class Table extends React.Component {
     }
 
     makeButton(type) {
-    let button = (<button className="btn button" id={type} data-toggle='modal' modal='#edit' onClick={this.buttonClick.bind(this, {type})}>
+        //console.log('#'+type)
+    let button = (<button className="btn button" id={type} data-toggle="modal" data-target={'#'+type} onClick={this.buttonClick.bind(this, {type})}>
                 <div className={'fa fa-' + type}></div>
             </button>)
 
         return button;
     }
 
-    buttonClick(id, e) {
-        console.log(id)
-        var tableData = [];
-        $('.button').click(function() {
-        $(this).closest('tr').find('td').not(':last').each(function() {
-            var textval = $(this).text();
-            tableData.push(textval);
-        })
-        console.log(tableData);
+    // buttonClick(id, e) {
+    //     console.log(id)
+    //     var tableData = [];
+    //     $('.button').click(function() {
+    //     $(this).closest('tr').find('td').not(':last').each(function() {
+    //         var textval = $(this).text();
+    //         tableData.push(textval);
+    //     })
+    //     console.log(tableData);
 
-        })
-    }
+    //     })
+    // }
 
     checkFormType(props) {
         if( props === 'Admin' ) {
@@ -124,7 +131,24 @@ class Table extends React.Component {
           console.log(data);
         });
         this.props.repull(this.props.type)
-      }
+    }
+
+    handleDelete(e){
+        e.preventDefault();
+        console.log('handle delete id: ', this.state)
+
+        var FormData = require('form-data');
+        var form = new FormData();
+        form.append('id', this.state.idNo);
+    
+        fetch('http://13.58.88.116:3000/users/'+this.state.id, {
+          method: 'DELETE',
+          body: form,
+        }).then(function(data) {
+          console.log(data);
+        });
+        this.props.repull(this.props.type)
+    }
     
     render() {
         $('.button').click(function() {
@@ -134,25 +158,18 @@ class Table extends React.Component {
                 tableData.push(textval)
             })
             console.log(tableData);
-            tableData.pop();
+
         })
 
         return (
             <div ref='tableRef'>
-                <table className="table table-striped table-bordered table-hover">
-                    <thead>
-                        {this.state.schema}
-                    </thead>
-                    <tbody>
-                        {this.state.data}
-                    </tbody>
-                </table>
-                <hr/>
                 {this.props.buttons === 'true' ? (
-                    <div>
-                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <div className='tableContainer'>
+                        <button type="button" className="btn btn-primary tableChild" data-toggle="modal" data-target="#myModal">
                             Create New {this.props.type}
                         </button>
+
+
                         <div className="modal fade" id="myModal" tabIndex="-1">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
@@ -172,46 +189,66 @@ class Table extends React.Component {
                             </div>
                         </div>
                         </div>
+                        {/* Edit Modal */}
+                        <button type="button" className="btn btn-primary tableChild" data-toggle="modal" data-target="#edit">
+                                Edit {this.props.type}
+                            </button>
+                        <div className="modal fade" id="edit" tabIndex="-1">
+                        <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">Edit {this.props.type}</h5>
+                                    <button type="button" className="close" data-dismiss="modal">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <Edit rawData={this.props.data} type={this.props.type} getFormData={this.getFormData}/>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss='modal'>Edit {this.props.type}</button>
+                                </div>
+                                </div>
+                        </div>
+                        </div>
+
+                        {/* Delete Modal */}
+                        <button type="button" className="btn btn-primary tableChild" data-toggle="modal" data-target="#delete">
+                            Delete {this.props.type}
+                        </button>
+                        <div className="modal fade" id="delete" tabIndex="-1">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">Delete {this.props.type}</h5>
+                                    <button type="button" className="close" data-dismiss="modal">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <Delete rawData={this.props.data} type={this.props.type} getFormData={this.getFormData}/>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-primary" onClick={this.handleDelete} data-dismiss='modal'>Delete {this.props.type}</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 ) : ('')}
-                <div className="modal fade" id="edit" tabIndex="-1">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add New {this.props.type}</h5>
-                            <button type="button" className="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <p>OMG EDIT MODAL!</p>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss='modal'>Create Account</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="modal fade" id="Delete" tabIndex="-1">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add New {this.props.type}</h5>
-                            <button type="button" className="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <p>OMG DELETE MODAL!</p>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss='modal'>Create Account</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
+                <hr/>
+                <table className="table table-striped table-bordered table-hover">
+                    <thead>
+                        {this.state.schema}
+                    </thead>
+                    <tbody>
+                        {this.state.data}
+                    </tbody>
+                </table>
+
+                
             </div>
         )
     }

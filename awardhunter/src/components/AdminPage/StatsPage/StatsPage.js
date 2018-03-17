@@ -80,7 +80,7 @@ class StatsPage extends React.Component {
             //         {content}
             //     </div>
             // </div>
-            <div className='statsPage'>
+            <div className='statsPage' style={{overflowY:'scroll', height:'90vh'}}>
                 <div ref='statsRef'>
                 <br/>
                 <h1>Statictics</h1>

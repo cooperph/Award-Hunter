@@ -1,0 +1,11 @@
+.tableContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tableChild {
+    flex: 1;
+    margin-left: 5px;
+    margin-right: 5px;
+}

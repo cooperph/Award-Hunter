@@ -135,6 +135,19 @@ $app->put('/users/[{id}]', function ($request, $response, $args) {
   return $this->response->withJson($input);
 });
 
+// Update a user with given id
+$app->put('/users/profile/[{id}]', function ($request, $response, $args) {
+  $input = $request->getParsedBody();
+  $sql = "UPDATE Employee SET first_name=:first_name, last_name=:last_name WHERE id=:id";
+  $sth = $this->db->prepare($sql);
+  $sth->bindParam("id", $args['id']);
+  $sth->bindParam("first_name", $input['first_name']);
+  $sth->bindParam("last_name", $input['last_name']);
+  $sth->execute();
+  $input['id'] = $args['id'];
+  return $this->response->withJson($input);
+});
+
 // get awards
 $app->get('/awards', function ($request, $response) {
   $sql = "SELECT award_name, A.first_name AS got_award_first_name, A.last_name AS got_award_last_name, depo_name AS got_award_department, B.first_name AS gave_award_first_name, B.last_name AS gave_award_last_name FROM Awards INNER JOIN Award_Types ON Award_Types.id = Awards.award_type INNER JOIN Employee A ON Awards.got_award = A.id INNER JOIN Employee B ON Awards.gave_award = B.id INNER JOIN Departments ON Departments.id = A.department";
@@ -147,7 +160,7 @@ $app->get('/awards', function ($request, $response) {
 // create a new award and send email
 $app->post('/awards', function ($request, $response) {
   // TODO: change it back to production
-  $environment = 'development';
+  $environment = 'production';
 
   // insert into Awards
   $input = $request->getParsedBody();

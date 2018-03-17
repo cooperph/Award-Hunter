@@ -121,7 +121,7 @@ $app->delete('/users/[{id}]', function ($request, $response, $args) {
 // Update a user with given id
 $app->post('/users/[{id}]', function ($request, $response, $args) {
   $input = $request->getParsedBody();
-  $sql = "UPDATE Employee SET first_name=:first_name, last_name=:last_name, email=:email, password=:password, department=:department, image=:image WHERE id=:id";
+  $sql = "UPDATE Employee SET first_name=:first_name, last_name=:last_name, email=:email, password=:password, department=:department WHERE id=:id";
   $sth = $this->db->prepare($sql);
   $sth->bindParam("id", $args['id']);
   $sth->bindParam("first_name", $input['first_name']);
@@ -129,7 +129,7 @@ $app->post('/users/[{id}]', function ($request, $response, $args) {
   $sth->bindParam("email", $input['email']);
   $sth->bindParam("password", $input['password']);
   $sth->bindParam("department", $input['department']);
-  $sth->bindParam("image", $input['image']);
+  // $sth->bindParam("image", $input['image']);
   $sth->execute();
   $input['id'] = $args['id'];
   return $this->response->withJson($input);

@@ -10,6 +10,7 @@ class Form extends React.Component {
             department: '',
             email: '',
             password: '',
+            id: '',
 		};
 
         this.checkFormType = this.checkFormType.bind(this);

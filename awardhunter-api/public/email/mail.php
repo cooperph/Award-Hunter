@@ -21,10 +21,9 @@ define('RECIPIENT', $got_award_email);
 // Replace us-west-2 with the AWS Region you're using for Amazon SES.
 define('REGION','us-west-2'); 
 
-define('SUBJECT','Test 2');
+define('SUBJECT','Congratulations');
 
-define('HTMLBODY','<h1>Certificate</h1>'.
-                  "<p>$cert_link</p>");
+define('HTMLBODY','<p>You have received a certificate. Your certificate can be downloaded in the following link. ' . "$cert_link</p>");
 define('TEXTBODY','This email was send with Amazon SES using the AWS SDK for PHP.');
 
 define('CHARSET','UTF-8');

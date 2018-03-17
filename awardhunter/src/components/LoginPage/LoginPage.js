@@ -37,14 +37,15 @@ class LoginPage extends React.Component {
 				alert('Invalid Password, please try again');
 			}
 
-			var account, name;
+			var account, name, userId;
 			if (pasrsedJSON["account_type"] == 1) {
 				account = 'user'
 			} else if (pasrsedJSON["account_type"] == 2) {
 				account = 'admin'
 			}
 			name = pasrsedJSON["first_name"] + " " + pasrsedJSON["last_name"]
-			let values = [account, name];
+			userId = pasrsedJSON["id"]
+			let values = [account, name, userId];
 			this.props.onClick(values);
 		});
 	}

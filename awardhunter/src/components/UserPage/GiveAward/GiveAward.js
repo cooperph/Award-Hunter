@@ -4,16 +4,60 @@ import React from 'react';
 class GiveAward extends React.Component {
     constructor(props) {
         super(props);
+        
         this.state= {
-            email: '',
-            award_name:'',
-            //award:'',
-
+            gave_award: this.props.userId,
+            award_type: '',
+            got_award: '',
+            userData: [],
+            awardData: [],
         };
 
         this.onChange = this.onChange.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.fetchUsers = this.fetchUsers.bind(this);
+        this.fetchAwardTypes = this.fetchAwardTypes.bind(this);
+    }
+
+    componentDidMount() {
+        this.fetchUsers();
+        this.fetchAwardTypes();
+    }
+
+    fetchUsers() {
+        fetch("http://13.58.88.116:3000/users", {mode:"cors"})
+        .then(response => response.json())
+        .then(parsedJSON => parsedJSON.map(user => (
+            {
+                id: `${user.id}`,
+                name: `${user.first_name} ${user.last_name}`,
+                firstName: `${user.first_name}`,
+                lastName: `${user.last_name}`,
+                email: `${user.email}`,
+                department: `${user.department}`,
+                password: `${user.password}`,
+            }
+        )))
+        .then(userData => this.setState({
+            userData,
+        }))
+        .catch(error => console.log('parsing failed users ', error))
+    }
+
+    fetchAwardTypes() {
+        fetch("http://13.58.88.116:3000/award_types", {mode:"cors"})
+        .then(response => response.json())
+        .then(parsedJSON => parsedJSON.map(award => (
+            {
+                id: `${award.id}`,
+                award_name: `${award.award_name}`,
+            }
+        )))
+        .then(awardData => this.setState({
+            awardData,
+        }))
+        .catch(error => console.log('parsing failed users ', error))
     }
 
     onChange(e) {
@@ -24,20 +68,23 @@ class GiveAward extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        alert('test give award');
+        console.log('handleSubmit');
 
-        //api get email
+        console.log(this.state);
 
-        //make sure email exists
+        var FormData = require('form-data');
+        var form = new FormData();
+        form.append('award_type', this.state.award_type);
+        form.append('got_award', this.state.got_award);
+        form.append('gave_award', this.state.gave_award);
+        
+        fetch('http://13.58.88.116:3000/awards', {
+          method: 'POST',
+          body: form,
+        }).then(function(data) {
+          console.log(data);
+        });
 
-        //API post needs work
-        //needs work
-        fetch("http://13.58.88.116:3000/awards", {
-            method: 'POST',
-            //body: form,
-          }).then(function(data) {
-            console.log(data);
-          });
       }
 
 
@@ -47,19 +94,22 @@ class GiveAward extends React.Component {
                 <h1>Give Award</h1>
                 <hr />
                 <h5>To whom would you like to give an award?</h5>
-                    <label>Recipient Email:  </label>
-                        <input name='email' type='email' value={this.state.email} onChange={this.onChange} />
+                    <select name='got_award' value={this.state.got_award} onChange={this.onChange} >
+                        {
+                            this.state.userData.map(function (user, i) {
+                                return  <option value={user.id}>{user.name} ({user.email})</option>
+                            })
+                        }
+                    </select>
                 <br />
                 <br />
                 <h5>Which award would you like to give?</h5>
-                    <select name='award_name' type='award_name' value={this.state.award_name} onChange={this.onChange} >
-                        <option value='10'>Choose Award</option>
-                        <option value='1'>Dundee Award</option>
-                        <option value='2'>Employee of the Week</option>
-                        <option value='3'>Employee of the Month</option>
-                        <option value='4'>Employee of the Year</option>
-                        <option value='5'>Happy Birthday</option>
-                        <option value='6'>Outstanding Achievement</option>
+                    <select name='award_type' value={this.state.award_type} onChange={this.onChange} >
+                        {
+                            this.state.awardData.map(function (award, i) {
+                                return  <option value={award.id}>{award.award_name}</option>
+                            })
+                        }                        
                     </select>
                 <br />
                 <br />

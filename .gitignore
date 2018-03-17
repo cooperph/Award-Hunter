@@ -1,3 +1,6 @@
 update.php
 db-production.php
 awardhunter-api/src/settings.php
+awardhunter-api/public/csv/*
+awardhunter-api/public/pdf/*
+awardhunter-api/update.sh

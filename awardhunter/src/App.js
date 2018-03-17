@@ -8,8 +8,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userType: 'admin',
-      userName: ''
+      userType: '',
+      userName: '',
+      uesrId: '',
     };
 
     this.handleLogIn = this.handleLogIn.bind(this);
@@ -20,13 +21,15 @@ class App extends Component {
     this.setState({
       userType: array[0],
       userName: array[1],
+      userId: array[2],
     })
   }
 
   handleLogOut() {
     this.setState({
       userType: '',
-      userName: ''
+      userName: '',
+      userId: ''
     })
   }
 
@@ -34,7 +37,7 @@ class App extends Component {
     let content = null;
     switch(this.state.userType){
       case 'user':
-        content = <UserPage user={this.state.userName} logOut={this.handleLogOut}/>
+        content = <UserPage user={this.state.userName} userId={this.state.userId} logOut={this.handleLogOut}/>
         break;
       case 'admin':
         content = <AdminPage user={this.state.userName} logOut={this.handleLogOut}/>

@@ -28,7 +28,7 @@ class UserPage extends React.Component {
                 content = <ManageAccount />
                 break;
             default:
-                content = <GiveAward />
+                content = <GiveAward userId={this.props.userId} />
         }
         return(
             <div className='admin-container'>

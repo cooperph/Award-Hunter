@@ -175,6 +175,8 @@ $app->post('/awards', function ($request, $response) {
   $got_award_email = $result["got_award_email"];
   $image = $result["image"];
 
+  $date = date("Y-m-d");
+
   // generate the latex
   // generate latex file
   $output_filename = uniqid();
@@ -213,7 +215,7 @@ $app->post('/awards', function ($request, $response) {
   $str .= "\\end{large}\n\n";
 
   $str .= "\begin{flushright}\n";
-  $str .= "date\n";
+  $str .= "{{$date}}\n";
   $str .= "\\end{flushright}\n\n";
 
   $str .= "\\end{landscape}\n";

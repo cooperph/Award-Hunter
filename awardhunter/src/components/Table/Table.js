@@ -25,6 +25,7 @@ class Table extends React.Component {
         this.checkFormType = this.checkFormType.bind(this);
         this.getFormData = this.getFormData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
 
@@ -133,9 +134,32 @@ class Table extends React.Component {
         this.props.repull(this.props.type)
     }
 
+    handleEdit(e) {
+        e.preventDefault();
+
+        console.log('handleEdit id -', this.state.id)
+
+        var FormData = require('form-data');
+        var form = new FormData();
+        form.append('first_name', this.state.firstName);
+        form.append('last_name', this.state.lastName);
+        form.append('password', this.state.password);
+        form.append('department', this.state.department);
+        form.append('email', this.state.email);
+        
+        fetch('http://13.58.88.116:3000/users/profile/' + this.state.id, {
+          method: 'POST',
+          body: form,
+        }).then(function(data) {
+          console.log(data);
+        });
+
+        this.props.repull(this.props.type)
+
+    }
+
     handleDelete(e){
         e.preventDefault();
-        console.log('handle delete id: ', this.state)
 
         var FormData = require('form-data');
         var form = new FormData();
@@ -207,7 +231,7 @@ class Table extends React.Component {
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss='modal'>Edit {this.props.type}</button>
+                                    <button type="button" className="btn btn-primary" onClick={this.handleEdit} data-dismiss='modal'>Edit {this.props.type}</button>
                                 </div>
                                 </div>
                         </div>

@@ -49,10 +49,7 @@ class ManageAccount extends React.Component {
         form.append('last_name', this.state.lastName);
         
         fetch('http://13.58.88.116:3000/users/profile/' + this.state.userId, {
-          method: 'PUT',
-          header: {
-          	'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-          },
+          method: 'POST',
           body: form,
         }).then(function(data) {
           console.log(data);

@@ -22,7 +22,7 @@ class Edit extends React.Component {
 
     
     getNames(data) {
-        console.log(data);
+        //console.log(data);
 
         
     }

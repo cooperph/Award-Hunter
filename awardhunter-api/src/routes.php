@@ -119,7 +119,7 @@ $app->delete('/users/[{id}]', function ($request, $response, $args) {
 });
 
 // Update a user with given id
-$app->put('/users/[{id}]', function ($request, $response, $args) {
+$app->post('/users/[{id}]', function ($request, $response, $args) {
   $input = $request->getParsedBody();
   $sql = "UPDATE Employee SET first_name=:first_name, last_name=:last_name, email=:email, password=:password, department=:department, image=:image WHERE id=:id";
   $sth = $this->db->prepare($sql);

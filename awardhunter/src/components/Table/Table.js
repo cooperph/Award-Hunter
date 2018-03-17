@@ -147,7 +147,7 @@ class Table extends React.Component {
         form.append('department', this.state.department);
         form.append('email', this.state.email);
         
-        fetch('http://13.58.88.116:3000/users/profile/' + this.state.id, {
+        fetch('http://13.58.88.116:3000/users/' + this.state.id, {
           method: 'POST',
           body: form,
         }).then(function(data) {

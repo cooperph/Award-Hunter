@@ -135,7 +135,7 @@ class Table extends React.Component {
 
     handleDelete(e){
         e.preventDefault();
-        console.log('handle delete id: ', this.state)
+        //console.log('handle delete id: ', this.state)
 
         var FormData = require('form-data');
         var form = new FormData();

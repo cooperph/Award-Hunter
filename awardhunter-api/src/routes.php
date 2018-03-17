@@ -136,7 +136,7 @@ $app->put('/users/[{id}]', function ($request, $response, $args) {
 });
 
 // Update a user with given id
-$app->put('/users/profile/[{id}]', function ($request, $response, $args) {
+$app->post('/users/profile/[{id}]', function ($request, $response, $args) {
   $input = $request->getParsedBody();
   $sql = "UPDATE Employee SET first_name=:first_name, last_name=:last_name WHERE id=:id";
   $sth = $this->db->prepare($sql);

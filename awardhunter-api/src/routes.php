@@ -238,3 +238,65 @@ $app->post('/awards', function ($request, $response) {
   // return $this->response->withJson($input);
   return $this->response->withJson($result);
 });
+
+// download csv for got award
+$app->get('/csv_got_award', function ($req, $res) {
+  $file = 'csv/csv_got_award.csv';
+  
+  $sth = $this->db->prepare("SELECT first_name, last_name, COUNT(got_award) AS got_award_times FROM Awards INNER JOIN Employee ON Employee.id = Awards.got_award GROUP BY got_award ORDER BY COUNT(got_award) DESC;");
+  $sth->execute();
+  $result = $sth->fetchAll();
+
+  $list_header = array (
+      array('first_name', 'last_name', 'got_award_times')
+  );
+  $list = array_merge($list_header, $result);
+  
+  $fp = fopen($file, 'w');
+
+  foreach ($list as $fields) {
+      fputcsv($fp, $fields);
+  }
+
+  $response = $res->withHeader('Content-Description', 'File Transfer')
+                  ->withHeader('Content-Type', 'application/octet-stream')
+                  ->withHeader('Content-Disposition', 'attachment;filename="'. basename($file).'"')
+                  ->withHeader('Expires', '0')
+                  ->withHeader('Cache-Control', 'must-revalidate')
+                  ->withHeader('Pragma', 'public')
+                  ->withHeader('Content-Length', filesize($file));
+
+  readfile($file);
+  return $response;
+});
+
+// download csv for gave award
+$app->get('/csv_gave_award', function ($req, $res) {
+  $file = 'csv/csv_gave_award.csv';
+  
+  $sth = $this->db->prepare("SELECT first_name, last_name, COUNT(gave_award) AS gave_award_times FROM Awards INNER JOIN Employee ON Employee.id = Awards.gave_award GROUP BY gave_award ORDER BY COUNT(gave_award) DESC;");
+  $sth->execute();
+  $result = $sth->fetchAll();
+
+  $list_header = array (
+      array('first_name', 'last_name', 'gave_award_times')
+  );
+  $list = array_merge($list_header, $result);
+  
+  $fp = fopen($file, 'w');
+
+  foreach ($list as $fields) {
+      fputcsv($fp, $fields);
+  }
+
+  $response = $res->withHeader('Content-Description', 'File Transfer')
+                  ->withHeader('Content-Type', 'application/octet-stream')
+                  ->withHeader('Content-Disposition', 'attachment;filename="'. basename($file).'"')
+                  ->withHeader('Expires', '0')
+                  ->withHeader('Cache-Control', 'must-revalidate')
+                  ->withHeader('Pragma', 'public')
+                  ->withHeader('Content-Length', filesize($file));
+
+  readfile($file);
+  return $response;
+});

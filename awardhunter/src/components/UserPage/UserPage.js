@@ -25,7 +25,7 @@ class UserPage extends React.Component {
         let content = null;
         switch(this.state.activePage) {
             case 'manage':
-                content = <ManageAccount />
+                content = <ManageAccount userId={this.props.userId} />
                 break;
             default:
                 content = <GiveAward userId={this.props.userId} />

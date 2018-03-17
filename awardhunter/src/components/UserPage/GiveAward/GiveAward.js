@@ -5,7 +5,7 @@ class GiveAward extends React.Component {
     constructor(props) {
         super(props);
         
-        this.state= {
+        this.state = {
             gave_award: this.props.userId,
             award_type: '',
             got_award: '',
@@ -13,7 +13,6 @@ class GiveAward extends React.Component {
             awardData: [],
         };
 
-        this.onChange = this.onChange.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetchUsers = this.fetchUsers.bind(this);
@@ -64,7 +63,7 @@ class GiveAward extends React.Component {
         this.setState({
           [e.target.name]: e.target.value,
         })
-      }
+    }
 
     handleSubmit(e) {
         e.preventDefault();
@@ -85,7 +84,7 @@ class GiveAward extends React.Component {
           console.log(data);
         });
 
-      }
+    }
 
 
     render() {
@@ -97,7 +96,7 @@ class GiveAward extends React.Component {
                     <select name='got_award' value={this.state.got_award} onChange={this.onChange} >
                         {
                             this.state.userData.map(function (user, i) {
-                                return  <option value={user.id}>{user.name} ({user.email})</option>
+                                return  <option key={user.id} value={user.id}>{user.name} ({user.email})</option>
                             })
                         }
                     </select>
@@ -107,7 +106,7 @@ class GiveAward extends React.Component {
                     <select name='award_type' value={this.state.award_type} onChange={this.onChange} >
                         {
                             this.state.awardData.map(function (award, i) {
-                                return  <option value={award.id}>{award.award_name}</option>
+                                return  <option key={award.id} value={award.id}>{award.award_name}</option>
                             })
                         }                        
                     </select>
